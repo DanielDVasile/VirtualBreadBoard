@@ -3,6 +3,7 @@
 //The class for the LEDs in the program.
 package virtualbreadboard;
 
+import java.awt.BasicStroke;
 import java.awt.Point;
 import javax.swing.JPanel;
 import java.awt.Color;
