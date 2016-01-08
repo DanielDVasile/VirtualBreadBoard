@@ -239,6 +239,7 @@ public class BreadBoardMenu extends JFrame{
                 area.add(componentList.get(i));
             }
             setup();
+            System.out.println("hello");
         }
 
         
