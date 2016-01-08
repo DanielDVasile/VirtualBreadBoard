@@ -42,16 +42,16 @@ public class LED extends JComponent  {
     private void setColor(int x) {
         if (x == 0){
             colorOn = Color.WHITE;
-            img = new ImageIcon("src//Images//Led White.jpg").getImage();
+            img = new ImageIcon("src//Images//Led White.png").getImage();
         } else if (x == 1) {
             colorOn = Color.GREEN;
-            img = new ImageIcon("src//Images//Led Green.jpg").getImage();
+            img = new ImageIcon("src//Images//Led Green.png").getImage();
         } else if (x == 2) {
             colorOn = Color.RED;
-            img = new ImageIcon("src//Images//Led Red.jpg").getImage();
+            img = new ImageIcon("src//Images//Led Red.png").getImage();
         } else {
             colorOn = Color.BLUE;
-            img = new ImageIcon("src//Images//Led Blue.jpg").getImage();
+            img = new ImageIcon("src//Images//Led Blue.png").getImage();
         }
     }
     /**
