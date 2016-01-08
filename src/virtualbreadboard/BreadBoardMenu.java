@@ -82,7 +82,6 @@ public class BreadBoardMenu extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (run.contains(e.getPoint())) {
-                System.out.println("Hey");
             }
         }
 
@@ -137,14 +136,11 @@ public class BreadBoardMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("HEY");
             if (led.contains(e.getPoint())) {
                 if (ledP == false) {
                     ledP = true;
-                    System.out.println("true");
                 } else {
                     ledP = false;
-                    System.out.println("false");
                 }
 
             }
@@ -176,7 +172,6 @@ public class BreadBoardMenu extends JFrame {
             if (board.contains(e.getPoint())) {
                 if (ledP == true) {
                     ledP = false;
-                    System.out.println(e.getPoint());
                     componentList.add(0, new LED(0));
                     ((LED) componentList.get(0)).setBounds(snapper.snapToX(e.getX()), snapper.snapToY(e.getY()), 100, 100);
                     area.removeAll();
@@ -185,13 +180,14 @@ public class BreadBoardMenu extends JFrame {
                     repaint();
                 } else if (wireP == true) {
                     if (!wireStep2) {
-                        x1 = snapper.snapToX(e.getX());
-                        y1 = snapper.snapToY(e.getY());
+                        x1 = snapper.wSnapToX(e.getX(), e.getY());
+                        System.out.println(snapper.wSnapToX(e.getX(), e.getY()));
+                        y1 = snapper.wSnapToY(e.getY());
                         wireStep2 = true;
                     } else {
                         wireStep2 = false;
-                        x2 = snapper.snapToX(e.getX());
-                        y2 = snapper.snapToY(e.getY());
+                        x2 = snapper.wSnapToX(e.getX(), e.getY());
+                        y2 = snapper.wSnapToY(e.getY());
                         componentList.add(0, new Wire(x1, y1, x2, y2));
                         ((Wire) componentList.get(0)).setLocation(0, 0);
                         area.removeAll();
@@ -222,7 +218,6 @@ public class BreadBoardMenu extends JFrame {
 
         private void redrawAll() {
             for (int i = 0; i < componentList.size(); i++) {
-                System.out.println(i);
                 area.add(componentList.get(i));
             }
             area.add(run);
@@ -237,7 +232,6 @@ public class BreadBoardMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("YO");
             if (wireTest.contains(e.getPoint())) {
                 ledP = false;
                 wireP = true;
