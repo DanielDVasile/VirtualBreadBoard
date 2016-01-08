@@ -154,7 +154,7 @@ public class Snapper {
     public int wSnapToY(int y) {
         int helper = y;
         //loops through all the points in the top middle row, to find the point the user clicked nearest to
-        if (y < 250 && y > 120) {
+        if (y < 250 && y > 110) {
             for (int i = 0; i < 5; i++) {
                 if (helper <= 133 + (24 * i)) {
                     helper = 121 + (24 * i);
