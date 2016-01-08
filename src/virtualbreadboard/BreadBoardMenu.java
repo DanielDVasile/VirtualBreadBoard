@@ -6,8 +6,6 @@ package virtualbreadboard;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class BreadBoardMenu extends JFrame {
+public class BreadBoardMenu extends JFrame{
     
     JPanel area;
     Graphics2D drawer;
@@ -24,7 +22,9 @@ public class BreadBoardMenu extends JFrame {
     JButton run;
     JButton back;
     JButton wireTest;
-    LED led;
+    LED ledGreen;
+    LED ledBlue;
+    LED ledRed;
     Board board;
     Snapper snapper;
     boolean ledP = false;
@@ -41,7 +41,9 @@ public class BreadBoardMenu extends JFrame {
      */
     public BreadBoardMenu(VirtualBreadBoard main) {
         this.main = main;
-        led = new LED(0);
+        ledGreen = new LED(1);
+        ledRed = new LED(2);
+        ledBlue = new LED(3);
         //sets JFrame's size, background color, and exit operation.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board = new Board();
@@ -59,21 +61,19 @@ public class BreadBoardMenu extends JFrame {
         run.setBounds(1050, 400, 100, 30);
         back.setBounds(1050, 450, 100, 30);
         wireTest.setBounds(1050, 300, 100, 30);
-        led.setBounds(850, 0, led.getWidth(), led.getHeight());
+        ledGreen.setBounds(850, 0, ledGreen.getWidth(), ledGreen.getHeight());
+        ledRed.setBounds(875, 0, ledGreen.getWidth(), ledGreen.getHeight());
+        ledBlue.setBounds(900, 0, ledGreen.getWidth(), ledGreen.getHeight());
         //adds MouseListeners to compnents
         run.addMouseListener(runL);
         back.addMouseListener(backL);
         wireTest.addMouseListener(wireL);
-        led.addMouseListener(ledL);
+        ledGreen.addMouseListener(ledL);
+        ledRed.addMouseListener(ledL);
+        ledBlue.addMouseListener(ledL);
         board.addMouseListener(boardL);
-        //adds a key listener to area
-        area.addKeyListener(areaKL);
         //adds components to the JPanel
-        area.add(run);
-        area.add(back);
-        area.add(led);
-        area.add(board);
-        area.add(wireTest);
+        setup();
         //adds JPanel area to this class
         add(area);
     }
@@ -140,13 +140,27 @@ public class BreadBoardMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (led.contains(e.getPoint())) {
+            if (ledGreen.contains(e.getPoint())) {
                 if (ledP == false) {
                     ledP = true;
                 } else {
                     ledP = false;
                 }
 
+            }
+            if (ledRed.contains(e.getPoint())) {
+                if (ledP == false) {
+                    ledP = true;
+                } else {
+                    ledP = false;
+                }
+            }
+            if (ledBlue.contains(e.getPoint())) {
+                if (ledP == false) {
+                    ledP = true;
+                } else {
+                    ledP = false;
+                }
             }
         }
 
@@ -224,12 +238,10 @@ public class BreadBoardMenu extends JFrame {
             for (int i = 0; i < componentList.size(); i++) {
                 area.add(componentList.get(i));
             }
-            area.add(run);
-            area.add(back);
-            area.add(wireTest);
-            area.add(led);
-            area.add(board);
+            setup();
         }
+
+        
     };
 
     MouseListener wireL = new MouseListener() {
@@ -259,27 +271,7 @@ public class BreadBoardMenu extends JFrame {
         }
     };
     
-    KeyListener areaKL = new KeyListener(){
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_W) {
-                //Checks to see if the W key is pressed
-                System.out.println("Key \"Delete\" Pressed");
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-        
-    };
+  
 
     private Dimension getDim() {
         if (board == null) {
@@ -289,4 +281,14 @@ public class BreadBoardMenu extends JFrame {
         }
 
     }
-};
+    
+    private void setup() {
+        area.add(run);
+        area.add(back);
+        area.add(wireTest);
+        area.add(ledGreen);
+        area.add(ledRed);
+        area.add(ledBlue);
+        area.add(board);
+    }
+}
