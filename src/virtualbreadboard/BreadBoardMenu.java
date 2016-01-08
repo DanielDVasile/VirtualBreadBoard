@@ -6,6 +6,8 @@ package virtualbreadboard;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -58,12 +60,14 @@ public class BreadBoardMenu extends JFrame {
         back.setBounds(1050, 450, 100, 30);
         wireTest.setBounds(1050, 300, 100, 30);
         led.setBounds(850, 0, led.getWidth(), led.getHeight());
-        //adds MouseListeners to buttons
+        //adds MouseListeners to compnents
         run.addMouseListener(runL);
         back.addMouseListener(backL);
         wireTest.addMouseListener(wireL);
         led.addMouseListener(ledL);
         board.addMouseListener(boardL);
+        //adds a key listener to area
+        area.addKeyListener(areaKL);
         //adds components to the JPanel
         area.add(run);
         area.add(back);
@@ -253,6 +257,28 @@ public class BreadBoardMenu extends JFrame {
         @Override
         public void mouseExited(MouseEvent e) {
         }
+    };
+    
+    KeyListener areaKL = new KeyListener(){
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_W) {
+                //Checks to see if the W key is pressed
+                System.out.println("Key \"Delete\" Pressed");
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+        
     };
 
     private Dimension getDim() {
