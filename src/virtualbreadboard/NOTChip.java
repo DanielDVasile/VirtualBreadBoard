@@ -1,10 +1,13 @@
-//Trevor Smith, Daniel Vasile
+//Trevor Smith
 //17-12-2015
-//The class which simulates a logical XOR chip
+
 package virtualbreadboard;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
+import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,9 +23,10 @@ public class NOTChip extends Chip{
     
     boolean input[] = new boolean[6];
     boolean output[] = new boolean[6];
+    final Image img = new ImageIcon("src//Images//Not.jpg").getImage();
     
     public NOTChip(Point power, Point ground) {
-        super(power, ground);
+        super();
         for(int i = 0; i < 6; i++){
             input[i] = false;
             output[i] = false;
@@ -48,21 +52,11 @@ public class NOTChip extends Chip{
     public void setOutput(boolean[] output) {
         this.output = output;
     }
-    /**
-     * used to draw the Logical Chip each time the frame refreshes 
-     * @param g The graphics component g
-     */
-    public void paintComponents(Graphics g) {
-        super.paintComponent(g);
-        paint(g);
-    }
-    /**
-     * used to draw the Logical Chip each time the frame refreshes 
-     * @param g The graphics component g
-     */
-    public void paint(Graphics g) {
-        g.fillOval(0, 0, 15, 15);
-    }
     
+    @Override
+    public void paint (Graphics g) {
+        Graphics2D g2d = (Graphics2D)(g);
+        g2d.drawImage(img, 0, 0, null);
+    }
     
 }
