@@ -25,14 +25,14 @@ public class XORChip extends Chip{
     boolean output[] = new boolean[4];
     final Image img = new ImageIcon("src//Images//Xor.jpg").getImage();
     
-    public XORChip(Point power, Point ground) {
+    public XORChip() {
         super();
-        for(int i = 0; i < 4; i++){
-            output[i] = false;
-            for(int k = 0; k < 4; k++){
-                input[i][k] = false;
-            }
-        }
+//        for(int i = 0; i < 4; i++){
+//            output[i] = false;
+//            for(int k = 0; k < 4; k++){
+//                input[i][k] = false;
+//            }
+//        }
     }
     
     public boolean outputState(boolean input1, boolean input2){

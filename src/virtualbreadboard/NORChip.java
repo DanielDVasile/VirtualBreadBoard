@@ -26,7 +26,7 @@ public class NORChip extends Chip{
     boolean output[] = new boolean[4];
     final Image img = new ImageIcon("src//Images//Nor.jpg").getImage();
     
-    public NORChip(Point power, Point ground) {
+    public NORChip() {
         super();
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){

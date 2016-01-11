@@ -26,7 +26,8 @@ public class NANDChip extends Chip{
     boolean output[] = new boolean[4];
     final Image img = new ImageIcon("src//Images//Nand.jpg").getImage();
     
-    public NANDChip(Point power, Point ground) {
+
+    public NANDChip() {
         super();
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
