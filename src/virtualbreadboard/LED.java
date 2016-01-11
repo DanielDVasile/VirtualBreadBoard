@@ -19,18 +19,17 @@ public class LED extends JComponent  {
     Point powerPin;
     Point groundPin;
     boolean isPowered;
-    Color colorOn;
-    Color colorOff;
     Image img;
+    int color;
 
     /**
      * primary constructor
      */
-    public LED(int color) {
+    public LED(int c) {
         powerPin = new Point();
         groundPin = new Point();
         isPowered = false;
-        colorOff = Color.DARK_GRAY;
+        color = c;
         setColor(color);
         setSize(getDim());
     }
@@ -41,18 +40,16 @@ public class LED extends JComponent  {
      * @param c the color of the LED as an int (1 = green, 2 = red, rest = blue)
      */
     private void setColor(int x) {
-        if (x == 0){
-            colorOn = Color.WHITE;
+        if (isPowered == false){
             img = new ImageIcon("src//Images//Led White.png").getImage();
-        } else if (x == 1) {
-            colorOn = Color.GREEN;
-            img = new ImageIcon("src//Images//Led Green.png").getImage();
-        } else if (x == 2) {
-            colorOn = Color.RED;
-            img = new ImageIcon("src//Images//Led Red.png").getImage();
         } else {
-            colorOn = Color.BLUE;
-            img = new ImageIcon("src//Images//Led Blue.png").getImage();
+            if (x == 1) {
+            img = new ImageIcon("src//Images//Led Green.png").getImage();
+            } else if (x == 2) {
+                img = new ImageIcon("src//Images//Led Red.png").getImage();
+            } else {
+                img = new ImageIcon("src//Images//Led Blue.png").getImage();
+            }
         }
     }
     /**
@@ -77,5 +74,9 @@ public class LED extends JComponent  {
         return new Dimension(img.getWidth(null), img.getHeight(null));
     }
     
+    public void setPower(boolean bool){
+        isPowered = bool;
+        setColor(color);
+    }
     
 }

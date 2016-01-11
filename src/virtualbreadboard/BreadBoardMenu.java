@@ -26,29 +26,23 @@ public class BreadBoardMenu extends JFrame{
     LED ledBlue;
     LED ledRed;
     ANDChip and;
-<<<<<<< HEAD
     NANDChip nand;
     NORChip nor;
     NOTChip not;
     ORChip or;
     XORChip xor;
-=======
->>>>>>> refs/remotes/origin/Test-Branch
     Board board;
     Snapper snapper;
     boolean ledP = false;
     boolean wireP = false;
     boolean wireStep2 = false;
-<<<<<<< HEAD
     boolean andP = false;
     boolean nandP = false;
     boolean norP = false;
     boolean notP = false;
     boolean orP = false;
     boolean xorP = false;
-=======
     boolean chipP = false;
->>>>>>> refs/remotes/origin/Test-Branch
     ArrayList<JComponent> componentList = new ArrayList();
     int x1 = 0;
     int y1 = 0;
@@ -61,15 +55,15 @@ public class BreadBoardMenu extends JFrame{
     public BreadBoardMenu(VirtualBreadBoard main) {
         this.main = main;
         ledGreen = new LED(1);
+        ledGreen.setPower(true);
         ledRed = new LED(2);
+        ledRed.setPower(true);
         ledBlue = new LED(3);
+        ledBlue.setPower(true);
         and = new ANDChip();
-<<<<<<< HEAD
         nand = new NANDChip();
         nor = new NORChip();
         or = new ORChip();
-=======
->>>>>>> refs/remotes/origin/Test-Branch
         //sets JFrame's size, background color, and exit operation.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board = new Board();

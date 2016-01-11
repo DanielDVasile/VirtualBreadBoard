@@ -25,7 +25,7 @@ public class ANDChip extends Chip{
     
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
-    final Image img = new ImageIcon("src//Images//and.jpg").getImage();
+    final Image img = new ImageIcon("src//Images//and.png").getImage();
     
     public ANDChip() {
         super();

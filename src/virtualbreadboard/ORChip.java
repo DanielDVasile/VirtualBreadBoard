@@ -26,7 +26,7 @@ public class ORChip extends Chip{
     boolean output[] = new boolean[4];
     final Image img = new ImageIcon("src//Images//Or.jpg").getImage();
     
-    public ORChip(Point power, Point ground) {
+    public ORChip() {
         super();
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
