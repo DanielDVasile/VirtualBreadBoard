@@ -3,6 +3,7 @@
 
 package virtualbreadboard;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -27,12 +28,13 @@ public class NORChip extends Chip{
     
     public NORChip(Point power, Point ground) {
         super();
-        for(int i = 0; i < 4; i++){
-            output[i] = false;
-            for(int k = 0; k < 4; k++){
-                input[i][k] = false;
-            }
-        }
+        setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
+//        for(int i = 0; i < 4; i++){
+//            output[i] = false;
+//            for(int k = 0; k < 4; k++){
+//                input[i][k] = false;
+//            }
+//        }
     }
     
     public boolean outputState(boolean input1, boolean input2){

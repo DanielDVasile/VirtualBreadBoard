@@ -3,6 +3,7 @@
 
 package virtualbreadboard;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -27,10 +28,11 @@ public class NOTChip extends Chip{
     
     public NOTChip(Point power, Point ground) {
         super();
-        for(int i = 0; i < 6; i++){
-            input[i] = false;
-            output[i] = false;
-        }
+        setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
+//        for(int i = 0; i < 6; i++){
+//            input[i] = false;
+//            output[i] = false;
+//        }
     }
     
     public boolean outputState(boolean input){
