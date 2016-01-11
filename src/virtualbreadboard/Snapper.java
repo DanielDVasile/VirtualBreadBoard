@@ -190,5 +190,31 @@ public class Snapper {
         //returns the proper y position
         return helper;
     }
-
+    /**
+     * the method which snaps a logical chip to the correct x-position
+     * @param x the original x position
+     * @return the corrected x position
+     */
+    public int cSnapToX(int x) {
+        int helper = x;
+        //checks if the user clicked outside the bounds of the breadboard, and returns the closest point
+        if (helper > 783) {
+            return 783;
+        } else if (helper < 38) {
+            return 38;
+        }
+        //loops through each point to find which one the spot the user clicked on is closest to
+        for (int i = 0; i < 32; i++) {
+            if (helper <= 50 + (24 * i)) {
+                helper = 38 + (24 * i);
+                i = 100;
+            }
+        }
+        //returns the closest point
+        return helper;
+    }
+    
+    public int cSnapToY() {
+        return 133 + (24* 4) - 10;
+    }
 }

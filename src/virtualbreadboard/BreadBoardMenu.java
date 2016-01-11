@@ -248,7 +248,7 @@ public class BreadBoardMenu extends JFrame{
                 } else if (chipP == true){
                     chipP = false;
                     componentList.add(0, new ANDChip());
-                    ((ANDChip) componentList.get(0)).setLocation(snapper.snapToX(e.getX()), snapper.snapToY(e.getY()));
+                    ((ANDChip) componentList.get(0)).setLocation(snapper.cSnapToX(e.getX()), snapper.cSnapToY());
                     area.removeAll();
                     repaint();
                     redrawAll();
