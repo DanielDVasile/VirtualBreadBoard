@@ -1,36 +1,39 @@
-//Trevor Smith, Daniel Vasile
-//05-01-2016
-//The abstract class which is the parent class for all the logcial chip class in the program
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 package virtualbreadboard;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import javax.swing.JComponent;
 
-public abstract class Chip extends JComponent{
+
+/**
+ *
+ * @author trsmi8659
+ */
+public abstract class Chip extends JComponent {
+    
     Point powerPin;
     Point groundPin;
-    boolean isPowered = false;
-    boolean isGrounded = false;
-
-    public Chip(Point power, Point ground){
-        powerPin = power;
-        groundPin = ground;
+    
+    public Chip(){
+        powerPin = new Point();
+        groundPin = new Point();
     }
     
-    public Point getPowerPin() {
-        return powerPin;
+    @Override
+    public void paintComponents(Graphics g) {
+        super.paintComponent(g);
+        paint(g);
     }
-
-    public Point getGroundPin() {
-        return groundPin;
-    }
+    /**
+     * used to draw the LED each time the frame refreshes 
+     * @param g The graphics component g
+     */
     
-    public void setPower(boolean power){
-        isPowered = power;
-    }
-    
-    public void setGround(boolean ground){
-        isGrounded = ground;
-    }
 }

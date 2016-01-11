@@ -25,11 +25,13 @@ public class BreadBoardMenu extends JFrame{
     LED ledGreen;
     LED ledBlue;
     LED ledRed;
+    ANDChip and;
     Board board;
     Snapper snapper;
     boolean ledP = false;
     boolean wireP = false;
     boolean wireStep2 = false;
+    boolean chipP = false;
     ArrayList<JComponent> componentList = new ArrayList();
     int x1 = 0;
     int y1 = 0;
@@ -44,6 +46,7 @@ public class BreadBoardMenu extends JFrame{
         ledGreen = new LED(1);
         ledRed = new LED(2);
         ledBlue = new LED(3);
+        and = new ANDChip();
         //sets JFrame's size, background color, and exit operation.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board = new Board();
@@ -64,6 +67,7 @@ public class BreadBoardMenu extends JFrame{
         ledGreen.setBounds(850, 0, ledGreen.getWidth(), ledGreen.getHeight());
         ledRed.setBounds(875, 0, ledGreen.getWidth(), ledGreen.getHeight());
         ledBlue.setBounds(900, 0, ledGreen.getWidth(), ledGreen.getHeight());
+        and.setBounds(850,50,and.getWidth(),and.getHeight());
         //adds MouseListeners to compnents
         run.addMouseListener(runL);
         back.addMouseListener(backL);
@@ -72,6 +76,7 @@ public class BreadBoardMenu extends JFrame{
         ledRed.addMouseListener(ledL);
         ledBlue.addMouseListener(ledL);
         board.addMouseListener(boardL);
+        and.addMouseListener(andL);
         //adds components to the JPanel
         setup();
         //adds JPanel area to this class
@@ -143,6 +148,9 @@ public class BreadBoardMenu extends JFrame{
             if (ledGreen.contains(e.getPoint())) {
                 if (ledP == false) {
                     ledP = true;
+                    chipP = false;
+                    wireP = false;
+                    wireStep2 = false;
                 } else {
                     ledP = false;
                 }
@@ -151,6 +159,9 @@ public class BreadBoardMenu extends JFrame{
             if (ledRed.contains(e.getPoint())) {
                 if (ledP == false) {
                     ledP = true;
+                    chipP = false;
+                    wireP = false;
+                    wireStep2 = false;
                 } else {
                     ledP = false;
                 }
@@ -158,6 +169,9 @@ public class BreadBoardMenu extends JFrame{
             if (ledBlue.contains(e.getPoint())) {
                 if (ledP == false) {
                     ledP = true;
+                    chipP = false;
+                    wireP = false;
+                    wireStep2 = false;
                 } else {
                     ledP = false;
                 }
@@ -214,6 +228,14 @@ public class BreadBoardMenu extends JFrame{
                         repaint();
                         wireP = false;
                     }
+                } else if (chipP == true){
+                    chipP = false;
+                    componentList.add(0, new ANDChip());
+                    ((ANDChip) componentList.get(0)).setLocation(snapper.snapToX(e.getX()), snapper.snapToY(e.getY()));
+                    area.removeAll();
+                    repaint();
+                    redrawAll();
+                    repaint();
                 }
             }
         }
@@ -271,6 +293,40 @@ public class BreadBoardMenu extends JFrame{
         public void mouseExited(MouseEvent e) {
         }
     };
+    
+    MouseListener andL = new MouseListener(){
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (and.contains(e.getPoint())) {
+                if (chipP == false) {
+                    ledP = false;
+                    chipP = true;
+                    wireP = false;
+                    wireStep2 = false;
+                } else {
+                    chipP = false;
+                }
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+        
+    };
 
     private Dimension getDim() {
         if (board == null) {
@@ -280,7 +336,9 @@ public class BreadBoardMenu extends JFrame{
         }
 
     }
-    
+    /**
+     * adds all the base compnents to the screen yo
+     */
     private void setup() {
         area.add(run);
         area.add(back);
@@ -289,5 +347,6 @@ public class BreadBoardMenu extends JFrame{
         area.add(ledRed);
         area.add(ledBlue);
         area.add(board);
+        area.add(and);
     }
 }
