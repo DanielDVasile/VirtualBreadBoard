@@ -64,6 +64,7 @@ public class BreadBoardMenu extends JFrame{
         nand = new NANDChip();
         nor = new NORChip();
         or = new ORChip();
+        xor = new XORChip();
         //sets JFrame's size, background color, and exit operation.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board = new Board();
