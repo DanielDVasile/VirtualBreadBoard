@@ -1,4 +1,4 @@
-//Trevor Smith
+//Trevor Smith, Zachary VanderBurgt
 //17-12-2015
 
 package virtualbreadboard;
@@ -25,7 +25,7 @@ public class ANDChip extends Chip{
     
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
-    final Image img = new ImageIcon("src//Images//and.png").getImage();
+    final Image img = new ImageIcon("src//Images//and_1.png").getImage();
     
     public ANDChip() {
         super();
