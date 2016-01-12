@@ -1,4 +1,4 @@
-//Daniel Vasile
+//Daniel Vasile, Zachary VanderBurgt
 //16-12-2015
 //The class for the LEDs in the program.
 package virtualbreadboard;
