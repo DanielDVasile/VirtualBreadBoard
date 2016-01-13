@@ -1,4 +1,4 @@
-//Trevor Smith
+//Trevor Smith, Zachary VanderBurgt
 //17-12-2015
 
 package virtualbreadboard;
@@ -26,7 +26,7 @@ public class NOTChip extends Chip{
     boolean output[] = new boolean[6];
     final Image img = new ImageIcon("src//Images//Not.jpg").getImage();
     
-    public NOTChip(Point power, Point ground) {
+    public NOTChip() {
         super();
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 6; i++){

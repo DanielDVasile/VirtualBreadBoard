@@ -1,4 +1,4 @@
-//Daniel Vasile
+//Daniel Vasile, Zachary VanderBurgt
 //04-1-2016
 //The class which will display all the Graphics needed for the user to drag and drop items onto a breadboard
 package virtualbreadboard;
