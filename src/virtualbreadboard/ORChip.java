@@ -24,7 +24,7 @@ public class ORChip extends Chip{
     
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
-    final Image img = new ImageIcon("src//Images//Or.jpg").getImage();
+    final Image img = new ImageIcon("src//Images//Or.png").getImage();
     
     public ORChip() {
         super();

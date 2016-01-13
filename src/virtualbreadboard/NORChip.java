@@ -24,7 +24,7 @@ public class NORChip extends Chip{
     
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
-    final Image img = new ImageIcon("src//Images//Nor.jpg").getImage();
+    final Image img = new ImageIcon("src//Images//Nor.png").getImage();
     
     public NORChip() {
         super();
