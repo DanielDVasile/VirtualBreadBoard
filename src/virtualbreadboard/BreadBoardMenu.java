@@ -23,6 +23,8 @@ public class BreadBoardMenu extends JFrame{
     JButton back;
     JButton wireButton;
     JButton resistorButton;
+    JButton undoButton;
+    JButton deleteButton;
     LED ledGreen;
     LED ledBlue;
     LED ledRed;
@@ -59,7 +61,7 @@ public class BreadBoardMenu extends JFrame{
         //sets JFrame's size, background color, and exit operation.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board = new Board();
-        setSize(1500, 562);
+        setSize(1300, 562);
         setBackground(Color.DARK_GRAY);
         //instanitates all nesscary components
         ledGreen = new LED(1);
@@ -79,24 +81,30 @@ public class BreadBoardMenu extends JFrame{
         back = new JButton("Back");
         wireButton = new JButton("Wire");
         resistorButton = new JButton("Resistor");
+        undoButton = new JButton("Undo");
+        deleteButton = new JButton("Delete");
         snapper = new Snapper();
         //sets JPanel layout
         area.setLayout(null);
         //sets the JComponent's locations and size
-        resistorButton.setBounds(1380, 350, 100, 30);
-        run.setBounds(1380, 400, 100, 30);
-        back.setBounds(1380, 450, 100, 30);
-        wireButton.setBounds(1380, 300, 100, 30);
+        wireButton.setBounds(1050, 250, 100, 30);
+        undoButton.setBounds(1050, 300, 100, 30);
+        deleteButton.setBounds(1050, 350, 100, 30);
+        resistorButton.setBounds(1150, 250, 100, 30);
+        run.setBounds(1150, 300, 100, 30);
+        back.setBounds(1150, 350, 100, 30);
         ledGreen.setBounds(850, 0, ledGreen.getWidth(), ledGreen.getHeight());
         ledRed.setBounds(875, 0, ledGreen.getWidth(), ledGreen.getHeight());
         ledBlue.setBounds(900, 0, ledGreen.getWidth(), ledGreen.getHeight());
-        and.setBounds(850,50,and.getWidth(),and.getHeight());
+        and.setLocation(850,50);
         nand.setLocation(850,150);
-        nor.setLocation(1050,50);
-        or.setLocation(1050,150);
-        xor.setLocation(1250, 50);
-        not.setLocation(1250, 150);
+        nor.setLocation(850,350);
+        or.setLocation(850,250);
+        xor.setLocation(1050, 50);
+        not.setLocation(1050, 150);
         //adds MouseListeners to compnents
+        undoButton.addMouseListener(undoL);
+        deleteButton.addMouseListener(deleteL);
         resistorButton.addMouseListener(resistorL);
         run.addMouseListener(runL);
         back.addMouseListener(backL);
@@ -332,12 +340,7 @@ public class BreadBoardMenu extends JFrame{
         public void mouseExited(MouseEvent e) {
         }
 
-        private void redrawAll() {
-            for (int i = 0; i < componentList.size(); i++) {
-                area.add(componentList.get(i));
-            }
-            setup();
-        }
+        
 
         
     };
@@ -612,6 +615,67 @@ public class BreadBoardMenu extends JFrame{
         public void mouseExited(MouseEvent e) {
         }
     };
+    /**
+     * The mouse listener which checks if the user clicked the undo button
+     */
+    MouseListener undoL = new MouseListener(){
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if(undoButton.contains(e.getPoint())) {
+                if (componentList.size()>0) {
+                    componentList.remove(0);
+                    area.removeAll();
+                    repaint();
+                    redrawAll();
+                    repaint();
+                } else {
+                    System.out.println("Empty array");
+                }
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+    };
+    /**
+     * The mouse listener which checks if the user clicked the delete button
+     */
+    MouseListener deleteL = new MouseListener(){
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if(deleteButton.contains(e.getPoint())) {
+                componentList.removeAll(componentList);
+                area.removeAll();
+                repaint();
+                redrawAll();
+                repaint();
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+    };
+    
     private Dimension getDim() {
         if (board == null) {
             return new Dimension(100, 100);
@@ -638,6 +702,8 @@ public class BreadBoardMenu extends JFrame{
         area.add(or);
         area.add(xor);
         area.add(resistorButton);
+        area.add(undoButton);
+        area.add(deleteButton);
     }
     /**
      * resets all the booleans which tell the program which component to place to false
@@ -658,4 +724,10 @@ public class BreadBoardMenu extends JFrame{
                         resistorP = false;
                     }
     }
+    private void redrawAll() {
+            for (int i = 0; i < componentList.size(); i++) {
+                area.add(componentList.get(i));
+            }
+            setup();
+        }
 }
