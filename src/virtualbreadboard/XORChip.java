@@ -3,6 +3,7 @@
 
 package virtualbreadboard;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -23,10 +24,11 @@ public class XORChip extends Chip{
     
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
-    final Image img = new ImageIcon("src//Images//Xor.jpg").getImage();
+    final Image img = new ImageIcon("src//Images//Xor.png").getImage();
     
     public XORChip() {
         super();
+        setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
 //            output[i] = false;
 //            for(int k = 0; k < 4; k++){

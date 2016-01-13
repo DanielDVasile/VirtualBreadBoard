@@ -24,7 +24,7 @@ public class NOTChip extends Chip{
     
     boolean input[] = new boolean[6];
     boolean output[] = new boolean[6];
-    final Image img = new ImageIcon("src//Images//Not.jpg").getImage();
+    final Image img = new ImageIcon("src//Images//Not.png").getImage();
     
     public NOTChip() {
         super();

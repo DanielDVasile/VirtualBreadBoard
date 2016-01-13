@@ -24,7 +24,7 @@ public class NANDChip extends Chip{
     
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
-    final Image img = new ImageIcon("src//Images//Nand.jpg").getImage();
+    final Image img = new ImageIcon("src//Images//Nand.png").getImage();
     
 
     public NANDChip() {
