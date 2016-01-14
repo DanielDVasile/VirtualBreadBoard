@@ -1,5 +1,7 @@
 package virtualbreadboard;
 
+import javax.swing.JOptionPane;
+
 public class Snapper {
 
     public boolean pins[][];
@@ -236,8 +238,13 @@ public class Snapper {
     }
     
     public boolean cPinUsed(int x, int y) {
+        if(x > 38 + (24 * 25)) {
+            JOptionPane.showMessageDialog(null, "You cant place a chip here as it will be off the edge");
+            return true;
+        }
         for (int i = 0; i < 7; i++) {
             if(pins[x + (24 * i)][229] == true) {
+                JOptionPane.showMessageDialog(null, "A pin that the chip would need to connect to is already being used");
                 return true;
             }
         }
@@ -246,7 +253,24 @@ public class Snapper {
         }
         return false;
     }
+    
+    public boolean ledPinUsed(int x, int y) {
+        if(pins[x][y] == false && pins[x + 24][y] == false) {
+            pins[x][y] = true;
+            pins[x + 24][y] = true;
+            return false;
+        }
+        return true;
+    }
+    
     public void resetPin(int x, int y) {
         pins[x][y] = false;
+    }
+    public void clearAllPins() {
+        for (int i = 25; i <= 485; i += 24) {
+            for (int j = 38; j <= 783; j += 24) {
+                pins[j][i] = false;
+            }
+        }
     }
 }
