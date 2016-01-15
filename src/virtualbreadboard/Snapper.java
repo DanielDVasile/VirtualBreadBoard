@@ -1,5 +1,6 @@
 package virtualbreadboard;
 
+import java.awt.Point;
 import javax.swing.JOptionPane;
 
 public class Snapper {
@@ -57,7 +58,7 @@ public class Snapper {
             if (helper < 87) {
                 return 86;
             } else if (helper > 757) {
-                return 758;
+                return 782;
             }
             for (int i = 0; i < 29; i++) {
 
@@ -73,7 +74,7 @@ public class Snapper {
             if (helper < 87) {
                 return 86;
             } else if (helper > 757) {
-                return 758;
+                return 782;
             }
             for (int i = 0; i < 29; i++) {
 
@@ -226,7 +227,7 @@ public class Snapper {
      * @return the proper y position for any logical chip
      */
     public int cSnapToY() {
-        return 133 + (24* 4) - 10;
+        return 217;
     }
     
     public boolean pinUsed(int x, int y) {
@@ -243,13 +244,22 @@ public class Snapper {
             return true;
         }
         for (int i = 0; i < 7; i++) {
-            if(pins[x + (24 * i)][229] == true) {
+            if(pins[x + (24 * i)][217] == true) {
                 JOptionPane.showMessageDialog(null, "A pin that the chip would need to connect to is already being used");
                 return true;
             }
         }
         for (int i = 0; i < 7; i++) {
-        pins[x + (24 * i)][229] = true;
+            if(pins[x + (24 * i)][288]) {
+                JOptionPane.showMessageDialog(null, "A pin that the chip would need to connect to is already being used");
+                return true;
+            }
+        }
+        for (int i = 0; i < 7; i++) {
+            pins[x + (24 * i)][288] = true;
+        }
+        for (int i = 0; i < 7; i++) {
+        pins[x + (24 * i)][217] = true;
         }
         return false;
     }
@@ -266,6 +276,27 @@ public class Snapper {
     public void resetPin(int x, int y) {
         pins[x][y] = false;
     }
+    
+    public void resetLEDPin(Point x) {
+        pins[(int)x.getX()][(int)x.getY()] = false;
+        pins[(int)x.getX() + 24][(int)x.getY()] = false;
+    }
+    
+    public void resetChipPin(Point x) {
+        pins[(int)x.getX()][(int)x.getY()] = false;
+        for (int i = 0; i < 7; i++) {
+            pins[(int)x.getX() + (24 * i)][(int)x.getY()] = false;
+        }
+        for (int i = 0; i < 7; i++) {
+            pins[(int)x.getX() + (24 * i)][288] = false;
+        }
+    }
+    
+    public void resetWirePin(Point one, Point two) {
+        pins[(int)one.getX()][(int)one.getY()] = false;
+        pins[(int)two.getX()][(int)two.getY()] = false;
+    }
+    
     public void clearAllPins() {
         for (int i = 25; i <= 485; i += 24) {
             for (int j = 38; j <= 783; j += 24) {
