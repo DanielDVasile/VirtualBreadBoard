@@ -27,8 +27,8 @@ public class NANDChip extends Chip{
     final Image img = new ImageIcon("src//Images//Nand.png").getImage();
     
 
-    public NANDChip() {
-        super();
+    public NANDChip(int x, int y) {
+        super(x,y);
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
 //            output[i] = false;
@@ -62,6 +62,11 @@ public class NANDChip extends Chip{
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D)(g);
         g2d.drawImage(img, 0, 0, null);
+    }
+
+    @Override
+    public Point getPoisiton() {
+        return powerPin;
     }
     
 }

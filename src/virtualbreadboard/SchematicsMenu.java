@@ -18,13 +18,13 @@ public class SchematicsMenu extends JFrame{
     
     public SchematicsMenu(VirtualBreadBoard main) {
         this.main = main;
-        test = new LED(1);
         //sets JFrame's size, background color, and exit operation.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600,600);
         setBackground(Color.DARK_GRAY);
         //instanitates all nesscary components
         area = new JPanel();
+        test = new LED(0, 0, 0);
         back = new JButton("Back");
         //sets JPanel layout
         area.setLayout(null);

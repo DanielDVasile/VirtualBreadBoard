@@ -26,8 +26,8 @@ public class NORChip extends Chip{
     boolean output[] = new boolean[4];
     final Image img = new ImageIcon("src//Images//Nor.png").getImage();
     
-    public NORChip() {
-        super();
+    public NORChip(int x, int y) {
+        super(x,y);
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
 //            output[i] = false;
@@ -61,6 +61,11 @@ public class NORChip extends Chip{
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D)(g);
         g2d.drawImage(img, 0, 0, null);
+    }
+
+    @Override
+    public Point getPoisiton() {
+        return powerPin;
     }
     
 }

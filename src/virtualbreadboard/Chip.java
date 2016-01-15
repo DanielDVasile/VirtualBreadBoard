@@ -21,8 +21,8 @@ public abstract class Chip extends JComponent {
     Point powerPin;
     Point groundPin;
     
-    public Chip(){
-        powerPin = new Point();
+    public Chip(int x, int y){
+        powerPin = new Point(x,y);
         groundPin = new Point();
     }
     
@@ -31,9 +31,7 @@ public abstract class Chip extends JComponent {
         super.paintComponent(g);
         paint(g);
     }
-    /**
-     * used to draw the LED each time the frame refreshes 
-     * @param g The graphics component g
-     */
+    
+    abstract public Point getPoisiton();
     
 }

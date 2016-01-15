@@ -26,8 +26,8 @@ public class NOTChip extends Chip{
     boolean output[] = new boolean[6];
     final Image img = new ImageIcon("src//Images//Not.png").getImage();
     
-    public NOTChip() {
-        super();
+    public NOTChip(int x, int y) {
+        super(x,y);
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 6; i++){
 //            input[i] = false;
@@ -59,6 +59,11 @@ public class NOTChip extends Chip{
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D)(g);
         g2d.drawImage(img, 0, 0, null);
+    }
+
+    @Override
+    public Point getPoisiton() {
+        return powerPin;
     }
     
 }

@@ -26,8 +26,8 @@ public class ORChip extends Chip{
     boolean output[] = new boolean[4];
     final Image img = new ImageIcon("src//Images//Or.png").getImage();
     
-    public ORChip() {
-        super();
+    public ORChip(int x, int y) {
+        super(x,y);
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
 //            output[i] = false;
@@ -61,6 +61,11 @@ public class ORChip extends Chip{
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D)(g);
         g2d.drawImage(img, 0, 0, null);
+    }
+
+    @Override
+    public Point getPoisiton() {
+        return powerPin;
     }
     
     
