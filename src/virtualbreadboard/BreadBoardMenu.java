@@ -189,6 +189,10 @@ public class BreadBoardMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (ledGreen.contains(e.getPoint())) {
                 if (ledP == false) {
                     resetPlacer();
@@ -217,10 +221,6 @@ public class BreadBoardMenu extends JFrame{
         }
 
         @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
         public void mouseReleased(MouseEvent e) {
         }
 
@@ -239,6 +239,10 @@ public class BreadBoardMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (board.contains(e.getPoint())) {
                 if (ledP == true) {
                     x1 = snapper.snapToX((int)e.getPoint().getX());
@@ -392,10 +396,6 @@ public class BreadBoardMenu extends JFrame{
         }
 
         @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
         public void mouseReleased(MouseEvent e) {
         }
 
@@ -418,6 +418,10 @@ public class BreadBoardMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (wireButton.contains(e.getPoint())) {
                 if(wireP == false) {
                     resetPlacer();
@@ -426,10 +430,6 @@ public class BreadBoardMenu extends JFrame{
                     wireP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -451,6 +451,10 @@ public class BreadBoardMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (and.contains(e.getPoint())) {
                 if (andP == false) {
                     resetPlacer();
@@ -459,10 +463,6 @@ public class BreadBoardMenu extends JFrame{
                     andP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -485,6 +485,10 @@ public class BreadBoardMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (nand.contains(e.getPoint())) {
                 if (nandP == false) {
                     resetPlacer();
@@ -493,10 +497,6 @@ public class BreadBoardMenu extends JFrame{
                     nandP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -519,6 +519,10 @@ public class BreadBoardMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (nor.contains(e.getPoint())) {
                 if (norP == false) {
                     resetPlacer();
@@ -527,10 +531,6 @@ public class BreadBoardMenu extends JFrame{
                     norP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -553,6 +553,10 @@ public class BreadBoardMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (not.contains(e.getPoint())) {
                 if (notP == false) {
                     resetPlacer();
@@ -561,10 +565,6 @@ public class BreadBoardMenu extends JFrame{
                     notP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -587,6 +587,10 @@ public class BreadBoardMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (or.contains(e.getPoint())) {
                 if (orP == false) {
                     resetPlacer();
@@ -595,10 +599,6 @@ public class BreadBoardMenu extends JFrame{
                     orP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -621,6 +621,10 @@ public class BreadBoardMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (xor.contains(e.getPoint())) {
                 if (xorP == false) {
                     resetPlacer();
@@ -629,10 +633,6 @@ public class BreadBoardMenu extends JFrame{
                     xorP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -655,6 +655,10 @@ public class BreadBoardMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if(resistorButton.contains(e.getPoint())) {
                 if(resistorP == false) {
                     resetPlacer();
@@ -664,10 +668,6 @@ public class BreadBoardMenu extends JFrame{
                 }
                 
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
