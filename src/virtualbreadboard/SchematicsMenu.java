@@ -37,12 +37,12 @@ public class SchematicsMenu extends JFrame {
     JButton undoButton;
     JButton deleteButton;
     JButton ledButton;
-    ANDChip and;
-    NANDChip nand;
-    NORChip nor;
-    NOTChip not;
-    ORChip or;
-    XORChip xor;
+    JButton and;
+    JButton nand;
+    JButton nor;
+    JButton not;
+    JButton or;
+    JButton xor;
     Board board;
     Snapper snapper;
     boolean resistorP = false;
@@ -61,12 +61,7 @@ public class SchematicsMenu extends JFrame {
     int y1 = 0;
     int x2 = 0;
     int y2 = 0;
-
-    /**
-     * primary constructor
-     */
     JButton save;
-    LED test;
     Point location;
     int height;
     int width;
@@ -81,12 +76,12 @@ public class SchematicsMenu extends JFrame {
         setSize(1300, 562);
         setBackground(Color.DARK_GRAY);
         //instanitates all nesscary components
-        and = new ANDChip(true);
-        nand = new NANDChip(true);
-        nor = new NORChip(true);
-        or = new ORChip(true);
-        xor = new XORChip(true);
-        not = new NOTChip(true);
+        and = new JButton("AND");
+        nand = new JButton("NAND");
+        nor = new JButton("NOR");
+        or = new JButton("OR");
+        xor = new JButton("XOR");
+        not = new JButton("NOT");
         area = new JPanel();
         run = new JButton("Run");
         back = new JButton("Back");
@@ -95,23 +90,25 @@ public class SchematicsMenu extends JFrame {
         resistorButton = new JButton("Resistor");
         undoButton = new JButton("Undo");
         deleteButton = new JButton("Delete");
+        save = new JButton("Save");
         snapper = new Snapper();
         //sets JPanel layout
         area.setLayout(null);
         //sets the JComponent's locations and size
-        wireButton.setBounds(1050, 250, 100, 30);
-        undoButton.setBounds(1050, 300, 100, 30);
-        deleteButton.setBounds(1050, 350, 100, 30);
-        resistorButton.setBounds(1150, 250, 100, 30);
-        run.setBounds(1150, 300, 100, 30);
-        back.setBounds(1150, 350, 100, 30);
-        ledButton.setBounds(850, 0,100,30);
-        and.setLocation(850,50);
-        nand.setLocation(850,150);
-        nor.setLocation(850,350);
-        or.setLocation(850,250);
-        xor.setLocation(1050, 50);
-        not.setLocation(1050, 150);
+        ledButton.setBounds(850,10,100,30);
+        and.setBounds(850,80-20,100,30);
+        nand.setBounds(850,130-20,100,30);
+        or.setBounds(850,180-20,100,30);
+        nor.setBounds(850,230-20,100,30);
+        xor.setBounds(850,280-20,100,30);
+        not.setBounds(850,330-20,100,30);
+        wireButton.setBounds(850,380-20,100,30);
+        resistorButton.setBounds(850,430-20,100,30);
+        undoButton.setBounds(850,480-20,100,30);
+        deleteButton.setBounds(1000,160,100,30);
+        run.setBounds(1000,10,100,30);
+        back.setBounds(1000,80-20,100,30);
+        save.setBounds(1000,130-20,100,30);
         //adds MouseListeners to compnents
         undoButton.addMouseListener(undoL);
         deleteButton.addMouseListener(deleteL);
@@ -127,28 +124,9 @@ public class SchematicsMenu extends JFrame {
         or.addMouseListener(orL);
         xor.addMouseListener(xorL);
         not.addMouseListener(notL);
-        //adds components to the JPanel
-        setup();
-        //adds JPanel area to this class
-        add(area);
-
-        test = new LED(0, 0, 0);
-        back = new JButton("Back");
-        save = new JButton("Save");
-        //sets JPanel layout
-        area.setLayout(null);
-        //sets the buttons locations
-        back.setBounds(450, 500, 120, 40);
-        save.setBounds(450, 450, 120, 40);        
-        test.setSize(300,300); 
-        test.setLocation(50,50);
-        //adds MouseListeners to buttons
-        back.addMouseListener(backL);
         save.addMouseListener(saveL);
         //adds components to the JPanel
-        area.add(back);
-        area.add(save);
-        area.add(test);
+        setup();
         //adds JPanel area to this class
         add(area);
     } 
@@ -719,6 +697,8 @@ public class SchematicsMenu extends JFrame {
         area.add(resistorButton);
         area.add(undoButton);
         area.add(deleteButton);
+        area.add(save);
+
     }
     /**
      * resets all the booleans which tell the program which component to place to false
