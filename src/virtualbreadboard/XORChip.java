@@ -27,15 +27,10 @@ public class XORChip extends Chip{
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
     final Image img = new ImageIcon("src//Images//Xor.png").getImage();
-<<<<<<< HEAD
     boolean pbb;
-    public XORChip() {
-        super();
-=======
     
     public XORChip(int x, int y) {
         super(x,y);
->>>>>>> Test-Branch
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
 //            output[i] = false;

@@ -25,6 +25,9 @@ public abstract class Chip extends JComponent {
         powerPin = new Point(x,y);
         groundPin = new Point();
     }
+    public Chip(){
+        
+    }
     
     @Override
     public void paintComponents(Graphics g) {

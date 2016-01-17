@@ -77,13 +77,11 @@ public class NANDChip extends Chip{
             g2d.drawString("NAND", 150/2, 76/2);
         }
     }
-<<<<<<< HEAD
-=======
+
 
     @Override
     public Point getPoisiton() {
         return powerPin;
     }
     
->>>>>>> Test-Branch
 }
