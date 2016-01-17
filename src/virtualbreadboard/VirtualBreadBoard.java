@@ -26,6 +26,8 @@ public class VirtualBreadBoard {
         bMenu = new BreadBoardMenu(this);
         cMenu = new CreditMenu(this);
         sMenu = new SchematicsMenu(this);
+        Screenshot screenshot = new Screenshot(sMenu);
+        sMenu.getScreenshot(screenshot);
         menu.setVisible(true);
 }
     public void switchFrame(int a) {
