@@ -3,6 +3,8 @@
 
 package virtualbreadboard;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -25,9 +27,15 @@ public class ORChip extends Chip{
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
     final Image img = new ImageIcon("src//Images//Or.png").getImage();
+<<<<<<< HEAD
+    boolean pbb;
+    public ORChip() {
+        super();
+=======
     
     public ORChip(int x, int y) {
         super(x,y);
+>>>>>>> Test-Branch
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
 //            output[i] = false;
@@ -35,6 +43,11 @@ public class ORChip extends Chip{
 //                input[i][k] = false;
 //            }
 //        }
+    }
+    public ORChip(boolean p){
+        super();
+        setSize(186,75);
+        pbb = p;
     }
     
     public boolean outputState(boolean input1, boolean input2){
@@ -60,7 +73,14 @@ public class ORChip extends Chip{
     @Override
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D)(g);
-        g2d.drawImage(img, 0, 0, null);
+        if (pbb == false) {
+            g2d.drawImage(img, 0, 0, null);
+        } else {
+            g2d.setStroke(new BasicStroke(2));
+            g2d.setColor(Color.white);
+            g2d.drawRect(0, 0, 24*7+3, 73);
+            g2d.drawString("OR", 150/2, 76/2);
+        }
     }
 
     @Override

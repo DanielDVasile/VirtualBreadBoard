@@ -20,11 +20,15 @@ public class Resistor extends JComponent{
     Point groundPin;
     int x;
     int y;
+    boolean pbb = false;
     
     public Resistor(int startx, int starty, int endx, int endy){
         powerPin = new Point (startx, starty);
         groundPin = new Point (endx, endy);
         setSize(1000,1000);
+    }
+    public void setPbb(){
+        pbb = true;
     }
 
     public Point getPowerPin() {
@@ -41,9 +45,19 @@ public class Resistor extends JComponent{
     }
     public void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
-        g2.setStroke(new BasicStroke(6));
-        g2.setColor(Color.magenta);
-        g2.drawLine((int)powerPin.getX(), (int)powerPin.getY(), ((int)groundPin.getX()), ((int)groundPin.getY()));
+        if (pbb == false) {
+            g2.setStroke(new BasicStroke(6));
+            g2.setColor(Color.magenta);
+            g2.drawLine((int)powerPin.getX(), (int)powerPin.getY(), ((int)groundPin.getX()), ((int)groundPin.getY()));
+        } else {
+            g2.setStroke(new BasicStroke(2));
+            g2.setColor(Color.white);
+            int[] xPoints = {((int)powerPin.getX()),((int)groundPin.getX()),((int)groundPin.getX()),((int)powerPin.getX())};
+            int[] yPoints = {((int)powerPin.getY()),((int)groundPin.getY()),((int)groundPin.getY())+10,((int)powerPin.getY())+10};
+            g2.drawPolygon(xPoints, yPoints, 4);
+            
+        }
+        
     }
     
 }

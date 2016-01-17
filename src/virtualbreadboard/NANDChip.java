@@ -3,6 +3,8 @@
 
 package virtualbreadboard;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -25,7 +27,7 @@ public class NANDChip extends Chip{
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
     final Image img = new ImageIcon("src//Images//Nand.png").getImage();
-    
+    boolean pbb;
 
     public NANDChip(int x, int y) {
         super(x,y);
@@ -36,6 +38,11 @@ public class NANDChip extends Chip{
 //                input[i][k] = false;
 //            }
 //        }
+    }
+    public NANDChip(boolean p){
+        super();
+        setSize(186,75);
+        pbb = p;
     }
     
     public boolean outputState(boolean input1, boolean input2){
@@ -61,12 +68,22 @@ public class NANDChip extends Chip{
     @Override
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D)(g);
-        g2d.drawImage(img, 0, 0, null);
+        if (pbb == false) {
+            g2d.drawImage(img, 0, 0, null);
+        } else {
+            g2d.setStroke(new BasicStroke(2));
+            g2d.setColor(Color.white);
+            g2d.drawRect(0, 0, 24*7+3, 73);
+            g2d.drawString("NAND", 150/2, 76/2);
+        }
     }
+<<<<<<< HEAD
+=======
 
     @Override
     public Point getPoisiton() {
         return powerPin;
     }
     
+>>>>>>> Test-Branch
 }

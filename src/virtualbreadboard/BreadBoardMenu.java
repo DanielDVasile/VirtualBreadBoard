@@ -62,7 +62,7 @@ public class BreadBoardMenu extends JFrame{
         this.main = main;
         //sets JFrame's size, background color, and exit operation.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        board = new Board();
+        board = new Board(false);
         setSize(1300, 562);
         setBackground(Color.DARK_GRAY);
         //instanitates all nesscary components
