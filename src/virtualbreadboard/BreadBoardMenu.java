@@ -54,6 +54,7 @@ public class BreadBoardMenu extends JFrame{
     int y1 = 0;
     int x2 = 0;
     int y2 = 0;
+    int ledID;
 
     /**
      * primary constructor
@@ -66,6 +67,7 @@ public class BreadBoardMenu extends JFrame{
         setSize(1300, 562);
         setBackground(Color.DARK_GRAY);
         //instanitates all nesscary components
+        ledID = 0;
         ledGreen = new LED(1,0,0);
         ledGreen.setPower(true);
         ledRed = new LED(2,0,0);
@@ -197,6 +199,7 @@ public class BreadBoardMenu extends JFrame{
                 if (ledP == false) {
                     resetPlacer();
                     ledP = true;
+                    ledID = 1;
                 } else {
                     ledP = false;
                 }
@@ -206,6 +209,7 @@ public class BreadBoardMenu extends JFrame{
                 if (ledP == false) {
                     resetPlacer();
                     ledP = true;
+                    ledID = 2;
                 } else {
                     ledP = false;
                 }
@@ -214,6 +218,7 @@ public class BreadBoardMenu extends JFrame{
                 if (ledP == false) {
                     resetPlacer();
                     ledP = true;
+                    ledID = 3;
                 } else {
                     ledP = false;
                 }
@@ -247,16 +252,20 @@ public class BreadBoardMenu extends JFrame{
                 if (ledP == true) {
                     x1 = snapper.snapToX((int)e.getPoint().getX());
                     y1 = snapper.snapToY((int)e.getPoint().getY());
+                    //makes sure you cant place an LED off the edge of the breadboard
+                    if(x1 >= 783) {
+                        JOptionPane.showMessageDialog(null,"You cannot place an LED here");
+                    } else {
                     if(!snapper.ledPinUsed(x1, y1)) {
-                        System.out.println(x1);
-                        System.out.println(y1);
-                    componentList.add(0, new LED(0, x1, y1));
+                    componentList.add(0, new LED(ledID, x1, y1));
                     componentListID.add(0,1);
                     ((LED) componentList.get(0)).setLocation(snapper.snapToX(x1) + 1, snapper.snapToY(y1) - 11);
                     area.removeAll();
                     repaint();
                     redrawAll();
                     repaint();
+                        }
+                    }
                     } else {
                         JOptionPane.showMessageDialog(null, "This pin is already being used");
                     }
@@ -265,8 +274,6 @@ public class BreadBoardMenu extends JFrame{
                         x1 = snapper.wSnapToX(e.getX(), e.getY());
                         y1 = snapper.wSnapToY(e.getY());
                         if(!snapper.pinUsed(x1, y1)) {
-                            System.out.println(x1);
-                            System.out.println(y1);
                             wireStep2 = true;
                         } else {
                             JOptionPane.showMessageDialog(null, "This pin is already being used");
@@ -293,7 +300,7 @@ public class BreadBoardMenu extends JFrame{
                 } else if (andP == true){
                     x1 = snapper.cSnapToX((int)e.getPoint().getX());
                     y1 = snapper.cSnapToY();
-                    if(!snapper.cPinUsed(x1, y1)) {
+                    if(!snapper.cPinUsed(x1, y1, 3)) {
                     componentList.add(0, new ANDChip(x1,y1));
                     componentListID.add(0,3);
                     ((ANDChip) componentList.get(0)).setLocation(x1 - 21,y1);
@@ -305,7 +312,7 @@ public class BreadBoardMenu extends JFrame{
                 } else if (nandP == true){
                     x1 = snapper.cSnapToX((int)e.getPoint().getX());
                     y1 = snapper.cSnapToY();
-                    if(!snapper.cPinUsed(x1, y1)) {
+                    if(!snapper.cPinUsed(x1, y1, 4)) {
                         componentListID.add(0,4);
                     componentList.add(0, new NANDChip(x1,y1));
                     ((NANDChip) componentList.get(0)).setLocation(x1 - 21,y1);
@@ -317,7 +324,7 @@ public class BreadBoardMenu extends JFrame{
                 } else if (norP == true){
                     x1 = snapper.cSnapToX((int)e.getPoint().getX());
                     y1 = snapper.cSnapToY();
-                    if(!snapper.cPinUsed(x1, y1)) {
+                    if(!snapper.cPinUsed(x1, y1, 5)) {
                     componentList.add(0, new NORChip(x1,y1));
                     componentListID.add(0,5);
                     ((NORChip) componentList.get(0)).setLocation(x1 - 21,y1);
@@ -329,7 +336,7 @@ public class BreadBoardMenu extends JFrame{
                 } else if (notP == true){
                     x1 = snapper.cSnapToX((int)e.getPoint().getX());
                     y1 = snapper.cSnapToY();
-                    if(!snapper.cPinUsed(x1, y1)) {
+                    if(!snapper.cPinUsed(x1, y1, 6)) {
                     componentList.add(0, new NOTChip(x1,y1));
                     componentListID.add(0,6);
                     ((NOTChip) componentList.get(0)).setLocation(x1 - 21,y1);
@@ -341,7 +348,7 @@ public class BreadBoardMenu extends JFrame{
                 } else if (orP == true){
                     x1 = snapper.cSnapToX((int)e.getPoint().getX());
                     y1 = snapper.cSnapToY();
-                    if(!snapper.cPinUsed(x1, y1)) {
+                    if(!snapper.cPinUsed(x1, y1 , 7)) {
                     componentList.add(0, new ORChip(x1,y1));
                     componentListID.add(0,7);
                     ((ORChip) componentList.get(0)).setLocation(x1 - 21,y1);
@@ -353,7 +360,7 @@ public class BreadBoardMenu extends JFrame{
                 } else if (xorP == true){
                     x1 = snapper.cSnapToX((int)e.getPoint().getX());
                     y1 = snapper.cSnapToY();
-                    if(!snapper.pinUsed(x1, y1)) {
+                    if(!snapper.cPinUsed(x1, y1, 8)) {
                     componentList.add(0, new XORChip(x1,y1));
                     componentListID.add(0,8);
                     ((XORChip) componentList.get(0)).setLocation(x1 - 21,y1);
@@ -392,7 +399,6 @@ public class BreadBoardMenu extends JFrame{
                     }
                 }
                 resetPlacer();
-            }
         }
 
         @Override

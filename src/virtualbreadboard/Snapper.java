@@ -6,11 +6,13 @@ import javax.swing.JOptionPane;
 public class Snapper {
 
     public boolean pins[][];
+    public boolean chipOutputPins[][];
     /**
      * primary constructor for the Snapper class
      */
     public Snapper() {
-        pins = new boolean[1000][500];
+        pins = new boolean[1000][600];
+        chipOutputPins = new boolean[1000][600];
         for (int i = 25; i <= 485; i += 24) {
             for (int j = 38; j <= 783; j += 24) {
                 pins[j][i] = false;
@@ -241,28 +243,102 @@ public class Snapper {
         return true;
     }
     
-    public boolean cPinUsed(int x, int y) {
+    public boolean cPinUsed(int x, int y, int ID) {
+        //if the chip is too close to the right edge
         if(x > 38 + (24 * 25)) {
             JOptionPane.showMessageDialog(null, "You cant place a chip here as it will be off the edge");
             return true;
         }
+        //if the chip would overlap with another component (on the top middle row)
         for (int i = 0; i < 7; i++) {
             if(pins[x + (24 * i)][217] == true) {
                 JOptionPane.showMessageDialog(null, "A pin that the chip would need to connect to is already being used");
                 return true;
             }
         }
+        //if the chip would overlap with another component (on the bottom middle row)
         for (int i = 0; i < 7; i++) {
             if(pins[x + (24 * i)][288]) {
                 JOptionPane.showMessageDialog(null, "A pin that the chip would need to connect to is already being used");
                 return true;
             }
         }
+        //sets the pins the chip is using to true (used)
         for (int i = 0; i < 7; i++) {
             pins[x + (24 * i)][288] = true;
         }
+        //sets the pins the chip is using to true (used)
         for (int i = 0; i < 7; i++) {
         pins[x + (24 * i)][217] = true;
+        }
+        //checks which pins will be the output pins for the chip
+        if(ID == 3) {//and chip
+            //sets the location of the chips output pins
+            for (int i = 0; i < 7; i++) {
+                chipOutputPins[x + (24 * 2)][288] = true;
+                chipOutputPins[x + (24 * 5)][288] = true;
+            }
+            //sets the location of the chips output pins
+            for (int i = 0; i < 7; i++) {
+                chipOutputPins[x + (24 * 3)][217] = true;
+                chipOutputPins[x + (24 * 6)][217] = true;
+            }
+        } else if(ID == 4) {//nand chip
+            //sets the location of the chips output pins
+            for (int i = 0; i < 7; i++) {
+                chipOutputPins[x + (24 * 2)][288] = true;
+                chipOutputPins[x + (24 * 5)][288] = true;
+            }
+            //sets the location of the chips output pins
+            for (int i = 0; i < 7; i++) {
+                chipOutputPins[x + (24 * 3)][217] = true;
+                chipOutputPins[x + (24 * 6)][217] = true;
+            }
+        } else if(ID == 5) {//nor chip
+            //sets the location of the chips output pins
+            for (int i = 0; i < 7; i++) {
+                chipOutputPins[x + (24 * 2)][288] = true;
+                chipOutputPins[x + (24 * 5)][288] = true;
+            }
+            //sets the location of the chips output pins
+            for (int i = 0; i < 7; i++) {
+                chipOutputPins[x + (24 * 3)][217] = true;
+                chipOutputPins[x + (24 * 6)][217] = true;
+            }
+        } else if(ID == 6) {//not chip
+            //sets the location of the chips output pins
+            for (int i = 0; i < 7; i++) {
+                chipOutputPins[x + (24 * 1)][288] = true;
+                chipOutputPins[x + (24 * 3)][288] = true;
+                chipOutputPins[x + (24 * 5)][288] = true;
+            }
+            //sets the location of the chips output pins
+            for (int i = 0; i < 7; i++) {
+                chipOutputPins[x + (24 * 2)][217] = true;
+                chipOutputPins[x + (24 * 4)][217] = true;
+                chipOutputPins[x + (24 * 6)][217] = true;
+            }
+        } else if(ID == 7) {//or chip
+            //sets the location of the chips output pins
+            for (int i = 0; i < 7; i++) {
+                chipOutputPins[x + (24 * 2)][288] = true;
+                chipOutputPins[x + (24 * 5)][288] = true;
+            }
+            //sets the location of the chips output pins
+            for (int i = 0; i < 7; i++) {
+                chipOutputPins[x + (24 * 3)][217] = true;
+                chipOutputPins[x + (24 * 6)][217] = true;
+            }
+        } else if(ID == 8) {//xor chip
+            for (int i = 0; i < 7; i++) {
+                chipOutputPins[x + (24 * 2)][288] = true;
+                chipOutputPins[x + (24 * 5)][288] = true;
+            }
+            //sets the location of the chips output pins
+            for (int i = 0; i < 7; i++) {
+                chipOutputPins[x + (24 * 3)][217] = true;
+                chipOutputPins[x + (24 * 6)][217] = true;
+            }
         }
         return false;
     }
@@ -293,6 +369,12 @@ public class Snapper {
         for (int i = 0; i < 7; i++) {
             pins[(int)x.getX() + (24 * i)][288] = false;
         }
+        for (int i = 0; i < 7; i++) {
+            chipOutputPins[(int)x.getX() + (24 * i)][(int)x.getY()] = false;
+        }
+        for (int i = 0; i < 7; i++) {
+            chipOutputPins[(int)x.getX() + (24 * i)][288] = false;
+        }
     }
     
     public void resetWirePin(Point one, Point two) {
@@ -304,6 +386,11 @@ public class Snapper {
         for (int i = 25; i <= 485; i += 24) {
             for (int j = 38; j <= 783; j += 24) {
                 pins[j][i] = false;
+            }
+        }
+        for (int i = 0; i < 1000; i++) {
+            for (int j = 0; j < 600; j++) {
+                chipOutputPins[i][j] = false;
             }
         }
     }
