@@ -1,12 +1,21 @@
 package virtualbreadboard;
 
+import java.awt.Point;
+import javax.swing.JOptionPane;
+
 public class Snapper {
 
+    public boolean pins[][];
     /**
      * primary constructor for the Snapper class
      */
     public Snapper() {
-
+        pins = new boolean[1000][500];
+        for (int i = 25; i <= 485; i += 24) {
+            for (int j = 38; j <= 783; j += 24) {
+                pins[j][i] = false;
+            }
+        }
     }
 
     /**
@@ -47,14 +56,14 @@ public class Snapper {
         if (y < 120) {
             //checks if the user clicked outside the bounds of the breadboard, and returns the closest point
             if (helper < 87) {
-                return 87;
+                return 86;
             } else if (helper > 757) {
-                return 757;
+                return 782;
             }
             for (int i = 0; i < 29; i++) {
 
                 if (helper <= 99 + (24 * i)) {
-                    helper = 87 + (24 * i);
+                    helper = 86 + (24 * i);
                     temp = 100;
                     i = 100;
                 }
@@ -63,14 +72,14 @@ public class Snapper {
         } else if (y > 420) {
             //checks if the user clicked outside the bounds of the breadboard, and returns the closest point
             if (helper < 87) {
-                return 87;
+                return 86;
             } else if (helper > 757) {
-                return 757;
+                return 782;
             }
             for (int i = 0; i < 29; i++) {
 
                 if (helper <= 99 + (24 * i)) {
-                    helper = 87 + (24 * i);
+                    helper = 86 + (24 * i);
                     i = 101;
                     temp = 101;
                 }
@@ -79,7 +88,7 @@ public class Snapper {
         } else {
             //checks if the user clicked outside the bounds of the breadboard, and returns the closest point
             if (helper > 783) {
-                return 783;
+                return 782;
             } else if (helper < 38) {
                 return 38;
             }
@@ -92,13 +101,13 @@ public class Snapper {
         }
         //since there aren't always points in the breadboard, if the program snapped to somewhere where it thought there was one, it snapps to the closest real point
         if (temp == 100) {//for top row
-            if (helper == 207) {
+            if (helper == 206) {
                 helper -= 24;
-            } else if (helper == 351) {
+            } else if (helper == 350) {
                 helper -= 24;
-            } else if (helper == 495) {
+            } else if (helper == 494) {
                 helper -= 24;
-            } else if (helper == 639) {
+            } else if (helper == 638) {
                 helper -= 24;
             }
         } else if (temp == 101) {//for bottom row
@@ -138,7 +147,7 @@ public class Snapper {
         } else {
             for (int i = 0; i < 5; i++) {
                 if (helper <= 300 + (24 * i)) {
-                    helper = 288 + (24 * i);
+                    helper = 289 + (24 * i);
                     i = 100;
                 }
             }
@@ -213,8 +222,86 @@ public class Snapper {
         //returns the closest point
         return helper;
     }
-    
+    /**
+     * returns the proper y position for any logical chip
+     * @return the proper y position for any logical chip
+     */
     public int cSnapToY() {
-        return 133 + (24* 4) - 10;
+        return 217;
+    }
+    
+    public boolean pinUsed(int x, int y) {
+        if(pins[x][y] == false) {
+            pins[x][y] = true;
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean cPinUsed(int x, int y) {
+        if(x > 38 + (24 * 25)) {
+            JOptionPane.showMessageDialog(null, "You cant place a chip here as it will be off the edge");
+            return true;
+        }
+        for (int i = 0; i < 7; i++) {
+            if(pins[x + (24 * i)][217] == true) {
+                JOptionPane.showMessageDialog(null, "A pin that the chip would need to connect to is already being used");
+                return true;
+            }
+        }
+        for (int i = 0; i < 7; i++) {
+            if(pins[x + (24 * i)][288]) {
+                JOptionPane.showMessageDialog(null, "A pin that the chip would need to connect to is already being used");
+                return true;
+            }
+        }
+        for (int i = 0; i < 7; i++) {
+            pins[x + (24 * i)][288] = true;
+        }
+        for (int i = 0; i < 7; i++) {
+        pins[x + (24 * i)][217] = true;
+        }
+        return false;
+    }
+    
+    public boolean ledPinUsed(int x, int y) {
+        if(pins[x][y] == false && pins[x + 24][y] == false) {
+            pins[x][y] = true;
+            pins[x + 24][y] = true;
+            return false;
+        }
+        return true;
+    }
+    
+    public void resetPin(int x, int y) {
+        pins[x][y] = false;
+    }
+    
+    public void resetLEDPin(Point x) {
+        pins[(int)x.getX()][(int)x.getY()] = false;
+        pins[(int)x.getX() + 24][(int)x.getY()] = false;
+    }
+    
+    public void resetChipPin(Point x) {
+        pins[(int)x.getX()][(int)x.getY()] = false;
+        for (int i = 0; i < 7; i++) {
+            pins[(int)x.getX() + (24 * i)][(int)x.getY()] = false;
+        }
+        for (int i = 0; i < 7; i++) {
+            pins[(int)x.getX() + (24 * i)][288] = false;
+        }
+    }
+    
+    public void resetWirePin(Point one, Point two) {
+        pins[(int)one.getX()][(int)one.getY()] = false;
+        pins[(int)two.getX()][(int)two.getY()] = false;
+    }
+    
+    public void clearAllPins() {
+        for (int i = 25; i <= 485; i += 24) {
+            for (int j = 38; j <= 783; j += 24) {
+                pins[j][i] = false;
+            }
+        }
     }
 }

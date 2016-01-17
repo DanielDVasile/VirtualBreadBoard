@@ -30,8 +30,8 @@ public class ANDChip extends Chip{
     final Image img = new ImageIcon("src//Images//and_1.png").getImage();
     boolean pbb;
     
-    public ANDChip() {
-        super();
+    public ANDChip(int x, int y) {
+        super(x,y);
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
 //            output[i] = false;
@@ -78,6 +78,11 @@ public class ANDChip extends Chip{
             g2d.drawString("AND", 150/2, 76/2);
         }
     }
+
+    @Override
+    public Point getPoisiton() {
+        return powerPin;
+    }
     
-    
+
 }

@@ -29,8 +29,8 @@ public class NANDChip extends Chip{
     final Image img = new ImageIcon("src//Images//Nand.png").getImage();
     boolean pbb;
 
-    public NANDChip() {
-        super();
+    public NANDChip(int x, int y) {
+        super(x,y);
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
 //            output[i] = false;
@@ -77,4 +77,13 @@ public class NANDChip extends Chip{
             g2d.drawString("NAND", 150/2, 76/2);
         }
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public Point getPoisiton() {
+        return powerPin;
+    }
+    
+>>>>>>> Test-Branch
 }

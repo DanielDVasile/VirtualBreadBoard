@@ -27,9 +27,15 @@ public class NOTChip extends Chip{
     boolean input[] = new boolean[6];
     boolean output[] = new boolean[6];
     final Image img = new ImageIcon("src//Images//Not.png").getImage();
+<<<<<<< HEAD
     boolean pbb;
     public NOTChip() {
         super();
+=======
+    
+    public NOTChip(int x, int y) {
+        super(x,y);
+>>>>>>> Test-Branch
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 6; i++){
 //            input[i] = false;
@@ -73,6 +79,11 @@ public class NOTChip extends Chip{
             g2d.drawRect(0, 0, 24*7+3, 73);
             g2d.drawString("NOT", 150/2, 76/2);
         }
+    }
+
+    @Override
+    public Point getPoisiton() {
+        return powerPin;
     }
     
 }

@@ -27,9 +27,15 @@ public class NORChip extends Chip{
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
     final Image img = new ImageIcon("src//Images//Nor.png").getImage();
+<<<<<<< HEAD
     boolean pbb;
     public NORChip() {
         super();
+=======
+    
+    public NORChip(int x, int y) {
+        super(x,y);
+>>>>>>> Test-Branch
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
 //            output[i] = false;
@@ -75,6 +81,11 @@ public class NORChip extends Chip{
             g2d.drawRect(0, 0, 24*7+3, 73);
             g2d.drawString("NOR", 150/2, 76/2);
         }
+    }
+
+    @Override
+    public Point getPoisiton() {
+        return powerPin;
     }
     
 }

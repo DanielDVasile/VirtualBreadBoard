@@ -27,9 +27,15 @@ public class XORChip extends Chip{
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
     final Image img = new ImageIcon("src//Images//Xor.png").getImage();
+<<<<<<< HEAD
     boolean pbb;
     public XORChip() {
         super();
+=======
+    
+    public XORChip(int x, int y) {
+        super(x,y);
+>>>>>>> Test-Branch
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
 //            output[i] = false;
@@ -74,6 +80,11 @@ public class XORChip extends Chip{
             g2d.drawRect(0, 0, 24*7+3, 73);
             g2d.drawString("XOR", 150/2, 76/2);
         }
+    }
+
+    @Override
+    public Point getPoisiton() {
+        return powerPin;
     }
     
     

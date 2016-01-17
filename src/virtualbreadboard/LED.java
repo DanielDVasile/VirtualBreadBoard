@@ -25,9 +25,9 @@ public class LED extends JComponent  {
     /**
      * primary constructor
      */
-    public LED(int c) {
-        powerPin = new Point();
-        groundPin = new Point();
+    public LED(int c, int x, int y) {
+        powerPin = new Point(x,y);
+        groundPin = new Point(x + 24,y);
         isPowered = false;
         color = c;
         setColor(color);
@@ -87,6 +87,10 @@ public class LED extends JComponent  {
     public void setPower(boolean bool){
         isPowered = bool;
         setColor(color);
+    }
+    
+    public Point getPosition() {
+        return powerPin;
     }
     
 }
