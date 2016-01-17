@@ -5,7 +5,6 @@ package virtualbreadboard;
 
 import java.awt.Color;
 import java.awt.Dimension;
-<<<<<<< HEAD
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -14,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-=======
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -25,7 +23,6 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
->>>>>>> Test-Branch
 
 
 public class SchematicsMenu extends JFrame {
@@ -35,7 +32,6 @@ public class SchematicsMenu extends JFrame {
     VirtualBreadBoard main;
     JButton run;
     JButton back;
-<<<<<<< HEAD
     JButton wireButton;
     JButton resistorButton;
     JButton undoButton;
@@ -69,7 +65,6 @@ public class SchematicsMenu extends JFrame {
     /**
      * primary constructor
      */
-=======
     JButton save;
     LED test;
     Point location;
@@ -78,7 +73,6 @@ public class SchematicsMenu extends JFrame {
     Screenshot screenshot;
     
     
->>>>>>> Test-Branch
     public SchematicsMenu(VirtualBreadBoard main) {
         this.main = main;
         //sets JFrame's size, background color, and exit operation.
@@ -94,7 +88,6 @@ public class SchematicsMenu extends JFrame {
         xor = new XORChip(true);
         not = new NOTChip(true);
         area = new JPanel();
-<<<<<<< HEAD
         run = new JButton("Run");
         back = new JButton("Back");
         ledButton = new JButton("LED");
@@ -138,9 +131,7 @@ public class SchematicsMenu extends JFrame {
         setup();
         //adds JPanel area to this class
         add(area);
-    }
 
-=======
         test = new LED(0, 0, 0);
         back = new JButton("Back");
         save = new JButton("Save");
@@ -160,9 +151,9 @@ public class SchematicsMenu extends JFrame {
         area.add(test);
         //adds JPanel area to this class
         add(area);
-    }    
+    } 
+
     
->>>>>>> Test-Branch
     /**
      * MouseListener used to check if the user clicked on the run button.
      */
@@ -197,13 +188,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-<<<<<<< HEAD
             if (run.contains(e.getPoint())) {
                 main.switchFrame(main.MAIN_MENU);
-=======
-            if(back.contains(e.getPoint())) {
+            }if(back.contains(e.getPoint())) {
                 main.switchFrame(VirtualBreadBoard.MAIN_MENU);
->>>>>>> Test-Branch
             }
         }
 
@@ -705,7 +693,6 @@ public class SchematicsMenu extends JFrame {
         }
     };
     
-<<<<<<< HEAD
     private Dimension getDim() {
         if (board == null) {
             return new Dimension(100, 100);
@@ -758,7 +745,7 @@ public class SchematicsMenu extends JFrame {
             }
             setup();
         }
-=======
+
     MouseListener saveL = new MouseListener() {
 
         @Override
@@ -802,5 +789,4 @@ public class SchematicsMenu extends JFrame {
     ImageIO.write(image, "png", new File(JOptionPane.showInputDialog("Please name the screenshot")));
     }
     
->>>>>>> Test-Branch
 }

@@ -27,15 +27,11 @@ public class NORChip extends Chip{
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
     final Image img = new ImageIcon("src//Images//Nor.png").getImage();
-<<<<<<< HEAD
+
     boolean pbb;
-    public NORChip() {
-        super();
-=======
     
     public NORChip(int x, int y) {
         super(x,y);
->>>>>>> Test-Branch
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 //        for(int i = 0; i < 4; i++){
 //            output[i] = false;
