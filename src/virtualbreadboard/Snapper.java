@@ -18,6 +18,11 @@ public class Snapper {
                 pins[j][i] = false;
             }
         }
+        for (int i = 25; i <= 485; i += 24) {
+            for (int j = 38; j <= 783; j += 24) {
+                chipOutputPins[j][i] = false;
+            }
+        }
     }
 
     /**
@@ -252,6 +257,7 @@ public class Snapper {
         //if the chip would overlap with another component (on the top middle row)
         for (int i = 0; i < 7; i++) {
             if(pins[x + (24 * i)][217] == true) {
+                System.out.println(i + " " + "Hello");
                 JOptionPane.showMessageDialog(null, "A pin that the chip would need to connect to is already being used");
                 return true;
             }
@@ -259,6 +265,7 @@ public class Snapper {
         //if the chip would overlap with another component (on the bottom middle row)
         for (int i = 0; i < 7; i++) {
             if(pins[x + (24 * i)][288]) {
+                System.out.println(i + " " + "Hi");
                 JOptionPane.showMessageDialog(null, "A pin that the chip would need to connect to is already being used");
                 return true;
             }
@@ -391,6 +398,42 @@ public class Snapper {
         for (int i = 0; i < 1000; i++) {
             for (int j = 0; j < 600; j++) {
                 chipOutputPins[i][j] = false;
+            }
+        }
+    }
+    
+    public boolean connectsInOut(int x1, int y1, int x2, int y2) {
+        if(y1 < 250 && y2 < 250) {
+            if(chipOutputPins[x1][217] == true) {
+                return pins[x1 - 24][217] || pins[x1 - 48][217];
+            } else if(chipOutputPins[x2][217] == true){
+                return pins[x2 - 24][217] || pins[x2 - 48][217];
+            } else {
+                return false;
+            }
+        } else if(y1 < 250 && y2 > 250) {
+            if(chipOutputPins[x1][217] == true) {
+                return pins[x1 - 24][217] || pins[x1 - 48][217];
+            } else if(chipOutputPins[x2][217] == true){
+                return pins[x2 - 24][288] || pins[x2 - 48][288];
+            } else {
+                return false;
+            }
+        } else if(y1 > 250 && y2 < 250) {
+            if(chipOutputPins[x1][217] == true) {
+                return pins[x1 - 24][288] || pins[x1 - 48][288];
+            } else if(chipOutputPins[x2][217] == true){
+                return pins[x2 - 24][217] || pins[x2 - 48][217];
+            } else {
+                return false;
+            }
+        } else {
+            if(chipOutputPins[x1][217] == true) {
+                return pins[x1 - 24][288] || pins[x1 - 48][288];
+            } else if(chipOutputPins[x2][217] == true){
+                return pins[x2 - 24][288] || pins[x2 - 48][288];
+            } else {
+                return false;
             }
         }
     }

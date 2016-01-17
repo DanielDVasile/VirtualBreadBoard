@@ -255,8 +255,7 @@ public class BreadBoardMenu extends JFrame{
                     //makes sure you cant place an LED off the edge of the breadboard
                     if(x1 >= 783) {
                         JOptionPane.showMessageDialog(null,"You cannot place an LED here");
-                    } else {
-                    if(!snapper.ledPinUsed(x1, y1)) {
+                    } else if(!snapper.ledPinUsed(x1, y1)) {
                     componentList.add(0, new LED(ledID, x1, y1));
                     componentListID.add(0,1);
                     ((LED) componentList.get(0)).setLocation(snapper.snapToX(x1) + 1, snapper.snapToY(y1) - 11);
@@ -264,8 +263,6 @@ public class BreadBoardMenu extends JFrame{
                     repaint();
                     redrawAll();
                     repaint();
-                        }
-                    }
                     } else {
                         JOptionPane.showMessageDialog(null, "This pin is already being used");
                     }
@@ -281,7 +278,8 @@ public class BreadBoardMenu extends JFrame{
                     } else {
                             x2 = snapper.wSnapToX(e.getX(), e.getY());
                             y2 = snapper.wSnapToY(e.getY());
-                            if(!snapper.pinUsed(x2, y2)) {
+                            if(!snapper.pinUsed(x2, y2) && !snapper.connectsInOut(x1,y1,x2,y2)) {
+                                System.out.println(!snapper.connectsInOut(x1,y1,x2,y2));
                             wireStep2 = false;
                             componentListID.add(0,2);
                             componentList.add(0, new Wire(x1, y1, x2, y2));
@@ -291,7 +289,7 @@ public class BreadBoardMenu extends JFrame{
                             redrawAll();
                             repaint();
                         } else {
-                            JOptionPane.showMessageDialog(null, "This pin is already being used");
+                            JOptionPane.showMessageDialog(null, "This pin is already being used or you tried to connect a chip's out to it's input");
                             snapper.resetPin(x1,y1);
                             snapper.resetPin(x2,y2);
                             wireStep2 = false;
@@ -399,6 +397,7 @@ public class BreadBoardMenu extends JFrame{
                     }
                 }
                 resetPlacer();
+        }
         }
 
         @Override
