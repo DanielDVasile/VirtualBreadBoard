@@ -21,7 +21,7 @@ public class LED extends JComponent  {
     boolean isPowered;
     Image img;
     int color;
-
+    boolean pbb = false;
     /**
      * primary constructor
      */
@@ -32,6 +32,10 @@ public class LED extends JComponent  {
         color = c;
         setColor(color);
         setSize(getDim());
+    }
+    public LED(){
+        pbb= true;
+        setSize(24,24);
     }
 
     /**
@@ -66,7 +70,13 @@ public class LED extends JComponent  {
      */
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D)(g);
-        g2d.drawImage(img, 0, 0, null);
+        if (pbb == false) {
+            g2d.drawImage(img, 0, 0, null);
+        } else {
+            g2d.setStroke(new BasicStroke(2));
+            g2d.setColor(Color.white);
+            g2d.drawOval(0, 0, 24, 24);
+        }        
     }
 
 

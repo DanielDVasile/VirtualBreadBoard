@@ -45,7 +45,7 @@ public class Wire extends JComponent{
     public void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke(6));
-        g2.setColor(Color.orange);
+        g2.setColor(Color.white);
         g2.drawLine((int)powerPin.getX(), (int)powerPin.getY(), ((int)groundPin.getX()), ((int)groundPin.getY()));
     }
 }

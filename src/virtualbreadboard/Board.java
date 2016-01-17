@@ -18,14 +18,15 @@ import javax.swing.JComponent;
  */
 public class Board extends JComponent{
     Image img;
-    public Board() {
-        loadImage();
+    public Board(boolean pbb) {
+        if (pbb == false) {
+            img = new ImageIcon("src//Images//board.jpg").getImage();
+        } else {
+            img = new ImageIcon("src//Images//board-PCB.jpg").getImage();
+        }
         setSize(getDim());
     }
 
-    private void loadImage() {
-        img = new ImageIcon("src//Images//board.jpg").getImage();    
-    }
 
     public Dimension getDim() {
         return new Dimension(img.getWidth(null), img.getHeight(null));    
