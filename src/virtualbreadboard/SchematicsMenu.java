@@ -27,7 +27,6 @@ public class SchematicsMenu extends JFrame {
     JPanel area;
     Graphics2D drawer;
     VirtualBreadBoard main;
-    JButton run;
     JButton back;
     JButton wireButton;
     JButton resistorButton;
@@ -81,7 +80,6 @@ public class SchematicsMenu extends JFrame {
         xor = new JButton("XOR");
         not = new JButton("NOT");
         area = new JPanel();
-        run = new JButton("Run");
         back = new JButton("Back");
         ledButton = new JButton("LED");
         wireButton = new JButton("Wire");
@@ -104,14 +102,12 @@ public class SchematicsMenu extends JFrame {
         resistorButton.setBounds(850,430-20,100,30);
         undoButton.setBounds(850,480-20,100,30);
         deleteButton.setBounds(1000,160,100,30);
-        run.setBounds(1000,10,100,30);
         back.setBounds(1000,80-20,100,30);
         save.setBounds(1000,130-20,100,30);
         //adds MouseListeners to compnents
         undoButton.addMouseListener(undoL);
         deleteButton.addMouseListener(deleteL);
         resistorButton.addMouseListener(resistorL);
-        run.addMouseListener(runL);
         back.addMouseListener(backL);
         wireButton.addMouseListener(wireL);
         ledButton.addMouseListener(ledL);
@@ -131,42 +127,13 @@ public class SchematicsMenu extends JFrame {
 
     
     /**
-     * MouseListener used to check if the user clicked on the run button.
-     */
-    MouseListener runL = new MouseListener() {
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (run.contains(e.getPoint())) {
-            }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-        }
-    };
-    /**
      * MouseListener used to check if the user clicked on the back button.
      */
     MouseListener backL = new MouseListener() {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (run.contains(e.getPoint())) {
-                main.switchFrame(main.MAIN_MENU);
-            }if(back.contains(e.getPoint())) {
+            if(back.contains(e.getPoint())) {
                 main.switchFrame(VirtualBreadBoard.MAIN_MENU);
             }
         }
@@ -745,7 +712,6 @@ public class SchematicsMenu extends JFrame {
      * adds all the base compnents to the screen
      */
     private void setup() {
-        area.add(run);
         area.add(back);
         area.add(wireButton);
         area.add(ledButton);

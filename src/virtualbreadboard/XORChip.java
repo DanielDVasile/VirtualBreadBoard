@@ -34,7 +34,7 @@ public class XORChip extends Chip{
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
         for(int i = 0; i < 4; i++){
             output[i] = false;
-            for(int k = 0; k < 4; k++){
+            for(int k = 0; k < 2; k++){
                 input[i][k] = false;
             }
         }
