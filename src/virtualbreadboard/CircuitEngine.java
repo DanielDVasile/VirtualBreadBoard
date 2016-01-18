@@ -20,7 +20,29 @@ public class CircuitEngine {
         components = list;
         componentID = list2;
         numOfLoops = components.size() * 2;
+        simulateCircuit();
     }
     
+    public void simulateCircuit() {
+        for (int i = 0; i < numOfLoops; i++) {
+            checkWires();
+            checkChips();
+            checkLEDs();
+        }
+    }
     
+    public void checkWires() {
+        for (int i = 0; i < 10; i++) {
+            
+        }
+    }
+    
+    public void checkChips() {
+        
+    }
+    
+    public void checkLEDs() {
+        
+    }
+
 }
