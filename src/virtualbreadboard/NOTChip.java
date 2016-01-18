@@ -10,6 +10,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /*
@@ -26,12 +29,18 @@ public class NOTChip extends Chip{
     
     boolean input[] = new boolean[6];
     boolean output[] = new boolean[6];
-    final Image img = new ImageIcon("src//Images//Not.png").getImage();
+    Image img;
     boolean pbb;
     
     
     public NOTChip(int x, int y) {
         super(x,y);
+        try {
+                InputStream is = NOTChip.class.getResourceAsStream("Images//Not.png");
+                img = ImageIO.read(is);
+            } catch (IOException e) {
+                System.out.println(e);
+        }
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
         for(int i = 0; i < 6; i++){
             input[i] = false;
