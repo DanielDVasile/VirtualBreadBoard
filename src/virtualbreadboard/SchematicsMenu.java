@@ -6,8 +6,6 @@ package virtualbreadboard;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -16,7 +14,6 @@ import javax.swing.JPanel;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
@@ -30,7 +27,6 @@ public class SchematicsMenu extends JFrame {
     JPanel area;
     Graphics2D drawer;
     VirtualBreadBoard main;
-    JButton run;
     JButton back;
     JButton wireButton;
     JButton resistorButton;
@@ -57,6 +53,7 @@ public class SchematicsMenu extends JFrame {
     boolean orP = false;
     boolean xorP = false;
     ArrayList<JComponent> componentList = new ArrayList();
+    ArrayList<Integer> componentListID = new ArrayList();
     int x1 = 0;
     int y1 = 0;
     int x2 = 0;
@@ -83,7 +80,6 @@ public class SchematicsMenu extends JFrame {
         xor = new JButton("XOR");
         not = new JButton("NOT");
         area = new JPanel();
-        run = new JButton("Run");
         back = new JButton("Back");
         ledButton = new JButton("LED");
         wireButton = new JButton("Wire");
@@ -106,14 +102,12 @@ public class SchematicsMenu extends JFrame {
         resistorButton.setBounds(850,430-20,100,30);
         undoButton.setBounds(850,480-20,100,30);
         deleteButton.setBounds(1000,160,100,30);
-        run.setBounds(1000,10,100,30);
         back.setBounds(1000,80-20,100,30);
         save.setBounds(1000,130-20,100,30);
         //adds MouseListeners to compnents
         undoButton.addMouseListener(undoL);
         deleteButton.addMouseListener(deleteL);
         resistorButton.addMouseListener(resistorL);
-        run.addMouseListener(runL);
         back.addMouseListener(backL);
         wireButton.addMouseListener(wireL);
         ledButton.addMouseListener(ledL);
@@ -133,48 +127,19 @@ public class SchematicsMenu extends JFrame {
 
     
     /**
-     * MouseListener used to check if the user clicked on the run button.
-     */
-    MouseListener runL = new MouseListener() {
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (run.contains(e.getPoint())) {
-            }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-        }
-    };
-    /**
      * MouseListener used to check if the user clicked on the back button.
      */
     MouseListener backL = new MouseListener() {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (run.contains(e.getPoint())) {
-                main.switchFrame(main.MAIN_MENU);
-            }if(back.contains(e.getPoint())) {
-                main.switchFrame(VirtualBreadBoard.MAIN_MENU);
-            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
+            if(back.contains(e.getPoint())) {
+                main.switchFrame(VirtualBreadBoard.MAIN_MENU);
+            }
         }
 
         @Override
@@ -196,6 +161,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (ledButton.contains(e.getPoint())) {
                 System.out.println("2");
                 if (ledP == false) {
@@ -205,10 +174,6 @@ public class SchematicsMenu extends JFrame {
                     ledP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -230,97 +195,161 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (board.contains(e.getPoint())) {
-                if (ledP == true) {
-                    componentList.add(0, new LED());
-                    ((LED) componentList.get(0)).setBounds(snapper.snapToX(e.getX()) + 1, snapper.snapToY(e.getY()) - 11, 100, 100);
-                    area.removeAll();
-                    repaint();
-                    redrawAll();
-                    repaint();
-                } else if (wireP == true) {
-                    if (!wireStep2) {
-                        x1 = snapper.wSnapToX(e.getX(), e.getY());
-                        y1 = snapper.wSnapToY(e.getY());
-                        wireStep2 = true;
-                    } else {
-                        wireStep2 = false;
-                        x2 = snapper.wSnapToX(e.getX(), e.getY());
-                        y2 = snapper.wSnapToY(e.getY());
-                        componentList.add(0, new Wire(x1, y1, x2, y2));
-                        ((Wire) componentList.get(0)).setLocation(0+2, 0+3);
-                        area.removeAll();
-                        repaint();
-                        redrawAll();
-                        repaint();
-                    }
-                } else if (andP == true){
-                    componentList.add(0, new ANDChip(true));
-                    ((ANDChip) componentList.get(0)).setLocation(snapper.cSnapToX(e.getX()) - 24, snapper.cSnapToY());
-                    area.removeAll();
-                    repaint();
-                    redrawAll();
-                    repaint();
-                } else if (nandP == true){
-                    componentList.add(0, new NANDChip(true));
-                    ((NANDChip) componentList.get(0)).setLocation(snapper.cSnapToX(e.getX()) - 24, snapper.cSnapToY());
-                    area.removeAll();
-                    repaint();
-                    redrawAll();
-                    repaint();
-                } else if (norP == true){
-                    componentList.add(0, new NORChip(true));
-                    ((NORChip) componentList.get(0)).setLocation(snapper.cSnapToX(e.getX()) - 24, snapper.cSnapToY());
-                    area.removeAll();
-                    repaint();
-                    redrawAll();
-                    repaint();
-                } else if (notP == true){
-                    componentList.add(0, new NOTChip(true));
-                    ((NOTChip) componentList.get(0)).setLocation(snapper.cSnapToX(e.getX()) - 24, snapper.cSnapToY());
-                    area.removeAll();
-                    repaint();
-                    redrawAll();
-                    repaint();
-                } else if (orP == true){
-                    componentList.add(0, new ORChip(true));
-                    ((ORChip) componentList.get(0)).setLocation(snapper.cSnapToX(e.getX()) - 24, snapper.cSnapToY());
-                    area.removeAll();
-                    repaint();
-                    redrawAll();
-                    repaint();
-                } else if (xorP == true){
-                    componentList.add(0, new XORChip(true));
-                    ((XORChip) componentList.get(0)).setLocation(snapper.cSnapToX(e.getX()) - 24, snapper.cSnapToY());
-                    area.removeAll();
-                    repaint();
-                    redrawAll();
-                    repaint();
-                } else if (resistorP == true) {
-                    if (!resistorStep2) {
-                        x1 = snapper.wSnapToX(e.getX(), e.getY());
-                        y1 = snapper.wSnapToY(e.getY());
-                        resistorStep2 = true;
-                    } else {
-                        resistorStep2 = false;
-                        x2 = snapper.wSnapToX(e.getX(), e.getY());
-                        y2 = snapper.wSnapToY(e.getY());
-                        Resistor temp = new Resistor(x1, y1, x2, y2);
-                        temp.setPbb();
-                        componentList.add(0, temp);
-                        ((Resistor) componentList.get(0)).setLocation(0, 0);
-                        area.removeAll();
-                        repaint();
-                        redrawAll();
-                        repaint();
-                    }
-                }
-                resetPlacer();
-            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
+            if (board.contains(e.getPoint())) {
+                if (ledP == true) {
+                    x1 = snapper.snapToX((int) e.getPoint().getX());
+                    y1 = snapper.snapToY((int) e.getPoint().getY());
+                    //makes sure you cant place an LED off the edge of the breadboard
+                    if (x1 >= 783) {
+                        JOptionPane.showMessageDialog(null, "You cannot place an LED here");
+                    } else if (!snapper.ledPinUsed(x1, y1)) {
+                        componentList.add(0, new LED());
+                        componentListID.add(0, 1);
+                        ((LED) componentList.get(0)).setLocation(snapper.snapToX(x1) + 1, snapper.snapToY(y1) - 11);
+                        area.removeAll();
+                        repaint();
+                        redrawAll();
+                        repaint();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "This pin is already being used");
+                    }
+                } else if (wireP == true) {
+                    if (!wireStep2) {
+                        x1 = snapper.wSnapToX(e.getX(), e.getY());
+                        y1 = snapper.wSnapToY(e.getY());
+                        System.out.println(y1);
+                        if (!snapper.pinUsed(x1, y1)) {
+                            wireStep2 = true;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "This pin is already being used");
+                        }
+                    } else {
+                        x2 = snapper.wSnapToX(e.getX(), e.getY());
+                        y2 = snapper.wSnapToY(e.getY());
+                        if (!snapper.pinUsed(x2, y2) && !snapper.connectsInOut(x1, y1, x2, y2)) {
+                            System.out.println(!snapper.connectsInOut(x1, y1, x2, y2));
+                            wireStep2 = false;
+                            componentListID.add(0, 2);
+                            componentList.add(0, new Wire(x1, y1, x2, y2));
+                            ((Wire) componentList.get(0)).setLocation(0, 0);
+                            area.removeAll();
+                            repaint();
+                            redrawAll();
+                            repaint();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "This pin is already being used or you tried to connect a chip's out to it's input");
+                            snapper.resetPin(x1, y1);
+                            snapper.resetPin(x2, y2);
+                            wireStep2 = false;
+                        }
+                    }
+                } else if (andP == true) {
+                    x1 = snapper.cSnapToX((int) e.getPoint().getX());
+                    y1 = snapper.cSnapToY();
+                    if (!snapper.cPinUsed(x1, y1, 3)) {
+                        componentList.add(0, new ANDChip(true));
+                        componentListID.add(0, 3);
+                        ((ANDChip) componentList.get(0)).setLocation(x1 - 10, y1);
+                        area.removeAll();
+                        repaint();
+                        redrawAll();
+                        repaint();
+                    }
+                } else if (nandP == true) {
+                    x1 = snapper.cSnapToX((int) e.getPoint().getX());
+                    y1 = snapper.cSnapToY();
+                    if (!snapper.cPinUsed(x1, y1, 4)) {
+                        componentListID.add(0, 4);
+                        componentList.add(0, new NANDChip(true));
+                        ((NANDChip) componentList.get(0)).setLocation(x1 - 10, y1);
+                        area.removeAll();
+                        repaint();
+                        redrawAll();
+                        repaint();
+                    }
+                } else if (norP == true) {
+                    x1 = snapper.cSnapToX((int) e.getPoint().getX());
+                    y1 = snapper.cSnapToY();
+                    if (!snapper.cPinUsed(x1, y1, 5)) {
+                        componentList.add(0, new NORChip(true));
+                        componentListID.add(0, 5);
+                        ((NORChip) componentList.get(0)).setLocation(x1 - 10, y1);
+                        area.removeAll();
+                        repaint();
+                        redrawAll();
+                        repaint();
+                    }
+                } else if (notP == true) {
+                    x1 = snapper.cSnapToX((int) e.getPoint().getX());
+                    y1 = snapper.cSnapToY();
+                    if (!snapper.cPinUsed(x1, y1, 6)) {
+                        componentList.add(0, new NOTChip(true));
+                        componentListID.add(0, 6);
+                        ((NOTChip) componentList.get(0)).setLocation(x1 - 10, y1);
+                        area.removeAll();
+                        repaint();
+                        redrawAll();
+                        repaint();
+                    }
+                } else if (orP == true) {
+                    x1 = snapper.cSnapToX((int) e.getPoint().getX());
+                    y1 = snapper.cSnapToY();
+                    if (!snapper.cPinUsed(x1, y1, 7)) {
+                        componentList.add(0, new ORChip(true));
+                        componentListID.add(0, 7);
+                        ((ORChip) componentList.get(0)).setLocation(x1 - 10, y1);
+                        area.removeAll();
+                        repaint();
+                        redrawAll();
+                        repaint();
+                    }
+                } else if (xorP == true) {
+                    x1 = snapper.cSnapToX((int) e.getPoint().getX());
+                    y1 = snapper.cSnapToY();
+                    if (!snapper.cPinUsed(x1, y1, 8)) {
+                        componentList.add(0, new XORChip(true));
+                        componentListID.add(0, 8);
+                        ((XORChip) componentList.get(0)).setLocation(x1 - 10, y1);
+                        area.removeAll();
+                        repaint();
+                        redrawAll();
+                        repaint();
+                    }
+                } else if (resistorP == true) {
+                    if (!resistorStep2) {
+                        x1 = snapper.resistorSnapToX(e.getX(), e.getY());
+                        y1 = snapper.resistorSnapToY(e.getY());
+                        if (!snapper.pinUsed(x1, y1)) {
+                            resistorStep2 = true;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "This pin is already being used");
+                        }
+                    } else {
+                        x2 = snapper.resistorSnapToX2(e.getX());
+                        y2 = snapper.resistorSnapToY2(e.getX(), e.getY());
+                        if (!snapper.pinUsed(x2, y2)) {
+                            resistorStep2 = false;
+                            componentList.add(0, new Resistor(x1, y1, x2, y2));
+                            componentListID.add(0, 9);
+                            ((Resistor) componentList.get(0)).setLocation(0, 0);
+                            area.removeAll();
+                            repaint();
+                            redrawAll();
+                            repaint();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "This pin is already being used");
+                            resistorStep2 = false;
+                            snapper.resetPin(x1, y1);
+                            snapper.resetPin(x2, y2);
+                        }
+                    }
+                }
+                resetPlacer();
+            }
         }
 
         @Override
@@ -346,6 +375,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (wireButton.contains(e.getPoint())) {
                 if(wireP == false) {
                     resetPlacer();
@@ -354,10 +387,6 @@ public class SchematicsMenu extends JFrame {
                     wireP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -379,6 +408,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (and.contains(e.getPoint())) {
                 if (andP == false) {
                     resetPlacer();
@@ -387,10 +420,6 @@ public class SchematicsMenu extends JFrame {
                     andP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -413,6 +442,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (nand.contains(e.getPoint())) {
                 if (nandP == false) {
                     resetPlacer();
@@ -421,10 +454,6 @@ public class SchematicsMenu extends JFrame {
                     nandP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -447,6 +476,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (nor.contains(e.getPoint())) {
                 if (norP == false) {
                     resetPlacer();
@@ -455,10 +488,6 @@ public class SchematicsMenu extends JFrame {
                     norP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -481,6 +510,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (not.contains(e.getPoint())) {
                 if (notP == false) {
                     resetPlacer();
@@ -489,10 +522,6 @@ public class SchematicsMenu extends JFrame {
                     notP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -515,6 +544,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (or.contains(e.getPoint())) {
                 if (orP == false) {
                     resetPlacer();
@@ -523,10 +556,6 @@ public class SchematicsMenu extends JFrame {
                     orP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -549,6 +578,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (xor.contains(e.getPoint())) {
                 if (xorP == false) {
                     resetPlacer();
@@ -557,10 +590,6 @@ public class SchematicsMenu extends JFrame {
                     xorP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -583,6 +612,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if(resistorButton.contains(e.getPoint())) {
                 if(resistorP == false) {
                     resetPlacer();
@@ -592,10 +625,6 @@ public class SchematicsMenu extends JFrame {
                 }
                 
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -616,6 +645,10 @@ public class SchematicsMenu extends JFrame {
     MouseListener undoL = new MouseListener(){
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if(undoButton.contains(e.getPoint())) {
                 if (componentList.size()>0) {
                     componentList.remove(0);
@@ -627,10 +660,6 @@ public class SchematicsMenu extends JFrame {
                     System.out.println("Empty array");
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
         @Override
         public void mouseReleased(MouseEvent e) {
@@ -648,6 +677,10 @@ public class SchematicsMenu extends JFrame {
     MouseListener deleteL = new MouseListener(){
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if(deleteButton.contains(e.getPoint())) {
                 componentList.removeAll(componentList);
                 area.removeAll();
@@ -655,10 +688,6 @@ public class SchematicsMenu extends JFrame {
                 redrawAll();
                 repaint();
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
         @Override
         public void mouseReleased(MouseEvent e) {
@@ -680,10 +709,9 @@ public class SchematicsMenu extends JFrame {
 
     }
     /**
-     * adds all the base compnents to the screen
+     * adds all the base components to the screen
      */
     private void setup() {
-        area.add(run);
         area.add(back);
         area.add(wireButton);
         area.add(ledButton);
