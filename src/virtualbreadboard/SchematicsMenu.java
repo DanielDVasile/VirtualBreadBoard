@@ -70,7 +70,7 @@ public class SchematicsMenu extends JFrame {
         //sets JFrame's size, background color, and exit operation.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board = new Board(true);
-        setSize(1300, 562);
+        setSize(1150, 562);
         setBackground(Color.DARK_GRAY);
         //instanitates all nesscary components
         and = new JButton("AND");
@@ -85,7 +85,7 @@ public class SchematicsMenu extends JFrame {
         wireButton = new JButton("Wire");
         resistorButton = new JButton("Resistor");
         undoButton = new JButton("Undo");
-        deleteButton = new JButton("Delete");
+        deleteButton = new JButton("Clear");
         save = new JButton("Save");
         snapper = new Snapper();
         //sets JPanel layout
@@ -100,10 +100,10 @@ public class SchematicsMenu extends JFrame {
         not.setBounds(850,330-20,100,30);
         wireButton.setBounds(850,380-20,100,30);
         resistorButton.setBounds(850,430-20,100,30);
-        undoButton.setBounds(850,480-20,100,30);
-        deleteButton.setBounds(1000,160,100,30);
-        back.setBounds(1000,80-20,100,30);
-        save.setBounds(1000,130-20,100,30);
+        undoButton.setBounds(1000,10,100,30);
+        deleteButton.setBounds(1000,60,100,30);
+        back.setBounds(1000,110,100,30);
+        save.setBounds(1000,160,100,30);
         //adds MouseListeners to compnents
         undoButton.addMouseListener(undoL);
         deleteButton.addMouseListener(deleteL);
@@ -333,7 +333,9 @@ public class SchematicsMenu extends JFrame {
                         y2 = snapper.resistorSnapToY2(e.getX(), e.getY());
                         if (!snapper.pinUsed(x2, y2)) {
                             resistorStep2 = false;
-                            componentList.add(0, new Resistor(x1, y1, x2, y2));
+                            Resistor temp = new Resistor(x1, y1, x2, y2);
+                            temp.setPbb();
+                            componentList.add(0, temp);
                             componentListID.add(0, 9);
                             ((Resistor) componentList.get(0)).setLocation(0, 0);
                             area.removeAll();
@@ -789,12 +791,13 @@ public class SchematicsMenu extends JFrame {
     }
     
     public void captureScreen() throws Exception {
-    location = screenshot.getLocation();
-    Dimension screensize = new Dimension(screenshot.getWidth(), screenshot.getHeight());
-    Rectangle screenRectangle = new Rectangle(location, screensize);
-    Robot robot = new Robot();
-    BufferedImage image = robot.createScreenCapture(screenRectangle);
-    ImageIO.write(image, "png", new File(JOptionPane.showInputDialog("Please name the screenshot")));
+        location = screenshot.getLocation();
+        location.setLocation(location.getX()+10, location.getY());
+        Dimension screensize = new Dimension(screenshot.getWidth()-20, screenshot.getHeight()-10);
+        Rectangle screenRectangle = new Rectangle(location, screensize);
+        Robot robot = new Robot();
+        BufferedImage image = robot.createScreenCapture(screenRectangle);
+        ImageIO.write(image, "png", new File((JOptionPane.showInputDialog("Please name the screenshot"))+".png"));
     }
     
 }
