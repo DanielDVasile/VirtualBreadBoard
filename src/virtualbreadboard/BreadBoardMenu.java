@@ -136,12 +136,12 @@ public class BreadBoardMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (run.contains(e.getPoint())) {
-            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
+            if (run.contains(e.getPoint())) {
+            }
         }
 
         @Override
@@ -163,13 +163,13 @@ public class BreadBoardMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (run.contains(e.getPoint())) {
-                main.switchFrame(main.MAIN_MENU);
-            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
+            if (run.contains(e.getPoint())) {
+                main.switchFrame(main.MAIN_MENU);
+            }
         }
 
         @Override

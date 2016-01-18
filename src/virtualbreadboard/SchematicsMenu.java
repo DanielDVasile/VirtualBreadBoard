@@ -133,13 +133,13 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if(back.contains(e.getPoint())) {
-                main.switchFrame(VirtualBreadBoard.MAIN_MENU);
-            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
+            if(back.contains(e.getPoint())) {
+                main.switchFrame(VirtualBreadBoard.MAIN_MENU);
+            }
         }
 
         @Override
@@ -161,6 +161,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (ledButton.contains(e.getPoint())) {
                 System.out.println("2");
                 if (ledP == false) {
@@ -170,10 +174,6 @@ public class SchematicsMenu extends JFrame {
                     ledP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -195,6 +195,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (board.contains(e.getPoint())) {
                 if (ledP == true) {
                     x1 = snapper.snapToX((int) e.getPoint().getX());
@@ -349,10 +353,6 @@ public class SchematicsMenu extends JFrame {
         }
 
         @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
         public void mouseReleased(MouseEvent e) {
         }
 
@@ -375,6 +375,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (wireButton.contains(e.getPoint())) {
                 if(wireP == false) {
                     resetPlacer();
@@ -383,10 +387,6 @@ public class SchematicsMenu extends JFrame {
                     wireP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -408,6 +408,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (and.contains(e.getPoint())) {
                 if (andP == false) {
                     resetPlacer();
@@ -416,10 +420,6 @@ public class SchematicsMenu extends JFrame {
                     andP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -442,6 +442,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (nand.contains(e.getPoint())) {
                 if (nandP == false) {
                     resetPlacer();
@@ -450,10 +454,6 @@ public class SchematicsMenu extends JFrame {
                     nandP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -476,6 +476,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (nor.contains(e.getPoint())) {
                 if (norP == false) {
                     resetPlacer();
@@ -484,10 +488,6 @@ public class SchematicsMenu extends JFrame {
                     norP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -510,6 +510,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (not.contains(e.getPoint())) {
                 if (notP == false) {
                     resetPlacer();
@@ -518,10 +522,6 @@ public class SchematicsMenu extends JFrame {
                     notP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -544,6 +544,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (or.contains(e.getPoint())) {
                 if (orP == false) {
                     resetPlacer();
@@ -552,10 +556,6 @@ public class SchematicsMenu extends JFrame {
                     orP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -578,6 +578,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (xor.contains(e.getPoint())) {
                 if (xorP == false) {
                     resetPlacer();
@@ -586,10 +590,6 @@ public class SchematicsMenu extends JFrame {
                     xorP = false;
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -612,6 +612,10 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if(resistorButton.contains(e.getPoint())) {
                 if(resistorP == false) {
                     resetPlacer();
@@ -621,10 +625,6 @@ public class SchematicsMenu extends JFrame {
                 }
                 
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -645,6 +645,10 @@ public class SchematicsMenu extends JFrame {
     MouseListener undoL = new MouseListener(){
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if(undoButton.contains(e.getPoint())) {
                 if (componentList.size()>0) {
                     componentList.remove(0);
@@ -656,10 +660,6 @@ public class SchematicsMenu extends JFrame {
                     System.out.println("Empty array");
                 }
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
         @Override
         public void mouseReleased(MouseEvent e) {
@@ -677,6 +677,10 @@ public class SchematicsMenu extends JFrame {
     MouseListener deleteL = new MouseListener(){
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if(deleteButton.contains(e.getPoint())) {
                 componentList.removeAll(componentList);
                 area.removeAll();
@@ -684,10 +688,6 @@ public class SchematicsMenu extends JFrame {
                 redrawAll();
                 repaint();
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
         }
         @Override
         public void mouseReleased(MouseEvent e) {
@@ -709,7 +709,7 @@ public class SchematicsMenu extends JFrame {
 
     }
     /**
-     * adds all the base compnents to the screen
+     * adds all the base components to the screen
      */
     private void setup() {
         area.add(back);
