@@ -5,13 +5,14 @@ package virtualbreadboard;
 
 import java.awt.BasicStroke;
 import java.awt.Point;
-import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import javax.swing.ImageIcon;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 public class LED extends JComponent  {
@@ -45,14 +46,34 @@ public class LED extends JComponent  {
      */
     private void setColor(int x) {
         if (isPowered == false){
-            img = new ImageIcon("src//Images//Led White.png").getImage();
+            try {
+                InputStream is = LED.class.getResourceAsStream("Images//Led White.png");
+                img = ImageIO.read(is);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
         } else {
             if (x == 1) {
-            img = new ImageIcon("src//Images//Led Green.png").getImage();
+            try {
+                InputStream is = LED.class.getResourceAsStream("Images//Led Green.png");
+                img = ImageIO.read(is);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
             } else if (x == 2) {
-                img = new ImageIcon("src//Images//Led Red.png").getImage();
+                try {
+                InputStream is = LED.class.getResourceAsStream("Images//Led Red.png");
+                img = ImageIO.read(is);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
             } else {
-                img = new ImageIcon("src//Images//Led Blue.png").getImage();
+                try {
+                InputStream is = LED.class.getResourceAsStream("Images//Led Blue.png");
+                img = ImageIO.read(is);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
             }
         }
     }

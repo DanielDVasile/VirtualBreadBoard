@@ -10,6 +10,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /*
@@ -26,11 +29,17 @@ public class ORChip extends Chip{
     
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
-    final Image img = new ImageIcon("src//Images//Or.png").getImage();
+    Image img;
     boolean pbb;
     
     public ORChip(int x, int y) {
         super(x,y);
+        try {
+                InputStream is = ORChip.class.getResourceAsStream("Images//Or.png");
+                img = ImageIO.read(is);
+            } catch (IOException e) {
+                System.out.println(e);
+        }
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
         for(int i = 0; i < 4; i++){
             output[i] = false;

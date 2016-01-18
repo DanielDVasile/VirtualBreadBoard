@@ -9,39 +9,55 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import javax.swing.ImageIcon;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 /**
  *
  * @author zackv
  */
-public class Board extends JComponent{
+public class Board extends JComponent {
+
     Image img;
+
     public Board(boolean pbb) {
+
         if (pbb == false) {
-            img = new ImageIcon("src//Images//board.jpg").getImage();
+            try {
+                InputStream is = Board.class.getResourceAsStream("Images//board.jpg");
+                img = ImageIO.read(is);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
         } else {
-            img = new ImageIcon("src//Images//board-PCB.jpg").getImage();
+            try {
+                InputStream is = Board.class.getResourceAsStream("Images//board-PCB.jpg");
+               img = ImageIO.read(is);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
         }
         setSize(getDim());
     }
 
-
     public Dimension getDim() {
-        return new Dimension(img.getWidth(null), img.getHeight(null));    
-    } 
-    
+        return new Dimension(img.getWidth(null), img.getHeight(null));
+    }
+
     public void paintComponents(Graphics g) {
         super.paintComponent(g);
         paint(g);
     }
+
     /**
-     * used to draw the LED each time the frame refreshes 
+     * used to draw the LED each time the frame refreshes
+     *
      * @param g The graphics component g
      */
-    public void paint (Graphics g) {
-        Graphics2D g2d = (Graphics2D)(g);
+    public void paint(Graphics g) {
+        Graphics2D g2d = (Graphics2D) (g);
         g2d.drawImage(img, 1, 1, null);
     }
 }
