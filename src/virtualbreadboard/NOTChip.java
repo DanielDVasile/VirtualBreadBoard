@@ -33,10 +33,10 @@ public class NOTChip extends Chip{
     public NOTChip(int x, int y) {
         super(x,y);
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
-//        for(int i = 0; i < 6; i++){
-//            input[i] = false;
-//            output[i] = false;
-//        }
+        for(int i = 0; i < 6; i++){
+            input[i] = false;
+            output[i] = false;
+        }
     }
     public NOTChip(boolean p){
         super();
