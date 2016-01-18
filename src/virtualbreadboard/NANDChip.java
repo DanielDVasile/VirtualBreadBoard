@@ -32,12 +32,12 @@ public class NANDChip extends Chip{
     public NANDChip(int x, int y) {
         super(x,y);
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
-//        for(int i = 0; i < 4; i++){
-//            output[i] = false;
-//            for(int k = 0; k < 4; k++){
-//                input[i][k] = false;
-//            }
-//        }
+        for(int i = 0; i < 4; i++){
+            output[i] = false;
+            for(int k = 0; k < 2; k++){
+                input[i][k] = false;
+            }
+        }
     }
     public NANDChip(boolean p){
         super();

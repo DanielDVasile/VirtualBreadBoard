@@ -1,4 +1,4 @@
-//Trevor Smith, Zachary VanderBurgt
+//Trevor Smith, Zachary VanderBurgt, Daniel Vasile
 //17-12-2015
 
 package virtualbreadboard;
@@ -11,7 +11,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,12 +32,12 @@ public class ANDChip extends Chip{
     public ANDChip(int x, int y) {
         super(x,y);
         setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
-//        for(int i = 0; i < 4; i++){
-//            output[i] = false;
-//            for(int k = 0; k < 4; k++){
-//                input[i][k] = false;
-//            }
-//        }
+        for(int i = 0; i < 4; i++){
+            output[i] = false;
+            for(int k = 0; k < 2; k++){
+                input[i][k] = false;
+            }
+        }
     }
     public ANDChip(boolean p){
         super();
