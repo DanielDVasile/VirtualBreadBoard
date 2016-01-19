@@ -133,13 +133,13 @@ public class SchematicsMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            if(back.contains(e.getPoint())) {
+                main.switchFrame(VirtualBreadBoard.MAIN_MENU);
+            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            if(back.contains(e.getPoint())) {
-                main.switchFrame(VirtualBreadBoard.MAIN_MENU);
-            }
         }
 
         @Override
@@ -221,7 +221,6 @@ public class SchematicsMenu extends JFrame {
                     if (!wireStep2) {
                         x1 = snapper.wSnapToX(e.getX(), e.getY());
                         y1 = snapper.wSnapToY(e.getY());
-                        System.out.println(y1);
                         if (!snapper.pinUsed(x1, y1)) {
                             wireStep2 = true;
                         } else {
@@ -230,8 +229,7 @@ public class SchematicsMenu extends JFrame {
                     } else {
                         x2 = snapper.wSnapToX(e.getX(), e.getY());
                         y2 = snapper.wSnapToY(e.getY());
-                        if (!snapper.pinUsed(x2, y2) && !snapper.connectsInOut(x1, y1, x2, y2)) {
-                            System.out.println(!snapper.connectsInOut(x1, y1, x2, y2));
+                        if (!snapper.pinUsed(x2, y2) && (!snapper.connectsInOut(x1, y1, x2, y2) || (new Wire(x1, y1, x2, y2)).isGroundWire() || (new Wire(x1, y1, x2, y2)).isPowerWire() )) {
                             wireStep2 = false;
                             componentListID.add(0, 2);
                             componentList.add(0, new Wire(x1, y1, x2, y2));

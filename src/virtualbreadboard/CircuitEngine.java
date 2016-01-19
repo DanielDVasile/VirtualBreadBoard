@@ -17,11 +17,7 @@ public class CircuitEngine {
     ArrayList<Integer> componentID;
     int numOfLoops;
     boolean topRow[];
-    boolean topPowerRow[];
-    boolean topGroundRow[];
     boolean bottomRow[];
-    boolean bottomPowerRow[];
-    boolean bottomGroundRow[];
     boolean groundTopRow[];
     boolean groundBottomRow[];
     boolean resistorGroundTop[];
@@ -36,15 +32,12 @@ public class CircuitEngine {
      * by the user
      */
     public CircuitEngine(ArrayList<JComponent> list, ArrayList<Integer> list2) {
+        //loads all components
         components = list;
         componentID = list2;
         numOfLoops = components.size() * 2;
         topRow = new boolean[800];
-        topPowerRow = new boolean[800];
-        topGroundRow = new boolean[800];
         bottomRow = new boolean[800];
-        bottomPowerRow = new boolean[800];
-        bottomGroundRow = new boolean[800];
         groundTopRow = new boolean[800];
         groundBottomRow = new boolean[800];
         resistorGroundTop = new boolean[800];
@@ -141,19 +134,7 @@ public class CircuitEngine {
             topRow[i] = false;
         }
         for (int i = 0; i < 800; i++) {
-            topPowerRow[i] = false;
-        }
-        for (int i = 0; i < 800; i++) {
-            topGroundRow[i] = false;
-        }
-        for (int i = 0; i < 800; i++) {
             bottomRow[i] = false;
-        }
-        for (int i = 0; i < 800; i++) {
-            bottomPowerRow[i] = false;
-        }
-        for (int i = 0; i < 800; i++) {
-            bottomGroundRow[i] = false;
         }
         for (int i = 0; i < 800; i++) {
             groundBottomRow[i] = false;
@@ -424,7 +405,6 @@ public class CircuitEngine {
             x = +24;//moves the input pin location to the pin
             counter++;
         }
-        counter++;
         x = ((Chip) components.get(i)).getPoisiton();
         for (int j = 0; j < 3; j++) {//sets the input pin state for the pins on the bottom row
             ((NOTChip) components.get(i)).setNOTInputPinState(bottomRow[x], counter);

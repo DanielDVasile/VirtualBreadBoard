@@ -59,7 +59,7 @@ public class BreadBoardMenu extends JFrame {
     int y2 = 0;
     int ledID;
 
-    /**
+    /** 
      * primary constructor
      */
     public BreadBoardMenu(VirtualBreadBoard main) {
@@ -172,15 +172,15 @@ public class BreadBoardMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
             if (run.contains(e.getPoint())) {
                 simulating = true;
                 CircuitEngine engine = new CircuitEngine(componentList, componentListID);
             }
             repaint();
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -202,13 +202,13 @@ public class BreadBoardMenu extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            if (run.contains(e.getPoint())) {
+                main.switchFrame(main.MAIN_MENU);
+            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            if (run.contains(e.getPoint())) {
-                main.switchFrame(main.MAIN_MENU);
-            }
         }
 
         @Override
@@ -356,7 +356,7 @@ public class BreadBoardMenu extends JFrame {
                     } else {
                         x2 = snapper.wSnapToX(e.getX(), e.getY());
                         y2 = snapper.wSnapToY(e.getY());
-                        if (!snapper.pinUsed(x2, y2) && !snapper.connectsInOut(x1, y1, x2, y2)) {
+                        if (!snapper.pinUsed(x2, y2) && (!snapper.connectsInOut(x1, y1, x2, y2) || (new Wire(x1, y1, x2, y2)).isGroundWire() || (new Wire(x1, y1, x2, y2)).isPowerWire() )) {
                             wireStep2 = false;
                             componentListID.add(0, 2);
                             componentList.add(0, new Wire(x1, y1, x2, y2));
