@@ -21,6 +21,7 @@ public class MainMenu extends JFrame{
     
     /**
      * primary constructor
+     * @param main the object which switches between frames
      */
     public MainMenu(VirtualBreadBoard main) {
         this.main = main;

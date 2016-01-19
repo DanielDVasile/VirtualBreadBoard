@@ -4,7 +4,6 @@
 package virtualbreadboard;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -61,6 +60,7 @@ public class BreadBoardMenu extends JFrame {
 
     /**
      * primary constructor
+     * @param main the main class which is used to switch frames with
      */
     public BreadBoardMenu(VirtualBreadBoard main) {
         this.main = main;
@@ -96,22 +96,22 @@ public class BreadBoardMenu extends JFrame {
         //sets JPanel layout
         area.setLayout(null);
         //sets the JComponent's locations and size
-        wireButton.setBounds(1050, 250, 100, 30);
-        undoButton.setBounds(1050, 300, 100, 30);
-        deleteButton.setBounds(1050, 350, 100, 30);
-        resistorButton.setBounds(1150, 250, 100, 30);
-        stopRun.setBounds(1050, 400, 200, 30);
-        run.setBounds(1150, 300, 100, 30);
-        back.setBounds(1150, 350, 100, 30);
-        ledGreen.setBounds(850, 0, ledGreen.getWidth(), ledGreen.getHeight());
-        ledRed.setBounds(875, 0, ledGreen.getWidth(), ledGreen.getHeight());
-        ledBlue.setBounds(900, 0, ledGreen.getWidth(), ledGreen.getHeight());
-        and.setLocation(850, 50);
-        nand.setLocation(850, 150);
-        nor.setLocation(850, 350);
-        or.setLocation(850, 250);
-        xor.setLocation(1050, 50);
-        not.setLocation(1050, 150);
+        wireButton.setBounds(1050, 115+40, 196, 30);
+        undoButton.setBounds(1050, 355, 196, 30);
+        deleteButton.setBounds(1050, 415, 196, 30);
+        resistorButton.setBounds(1050, 215, 196, 30);
+        stopRun.setBounds(1050, 315, 196, 30);
+        run.setBounds(1050, 255, 196, 30);
+        back.setBounds(1050, 415+40, 196, 30);
+        ledGreen.setBounds(1050, 115, ledGreen.getWidth(), ledGreen.getHeight());
+        ledRed.setBounds(1050+75+7, 115, ledGreen.getWidth(), ledGreen.getHeight());
+        ledBlue.setBounds(1200+15, 115, ledGreen.getWidth(), ledGreen.getHeight());
+        and.setLocation(850, 15);
+        nand.setLocation(850, 115);
+        nor.setLocation(850, 315);
+        or.setLocation(850, 215);
+        xor.setLocation(850, 415);
+        not.setLocation(1050, 15);
         //adds MouseListeners to compnents
         stopRun.addMouseListener(stopRunL);
         undoButton.addMouseListener(undoL);
@@ -353,6 +353,7 @@ public class BreadBoardMenu extends JFrame {
                     if (!wireStep2) {//if the user has not choosen the first point for the wire yet
                         x1 = snapper.wSnapToX(e.getX(), e.getY());
                         y1 = snapper.wSnapToY(e.getY());
+                        System.out.println(y1);
                         if (!snapper.pinUsed(x1, y1)) {//if the pin the user choose is not used
                             wireStep2 = true;
                         } else {

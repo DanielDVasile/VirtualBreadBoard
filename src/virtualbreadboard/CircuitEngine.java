@@ -64,6 +64,10 @@ public class CircuitEngine {
      * checks and updates the power status of wires
      */
     public void checkWires() {
+        for (int i = 0; i < 800; i++) {
+            topRow[i] = false;
+            bottomRow[i] = false;
+        }
         for (int i = 0; i < components.size(); i++) {
             if (componentID.get(i) == 2) {
                 checkPowerLine(i);
@@ -102,8 +106,14 @@ public class CircuitEngine {
             if (componentID.get(i) == 1) {
                 Point LEDPoint = ((LED) components.get(i)).getPosition();
                 if (LEDPoint.getY() < 280 && LEDPoint.getY() > 100) {//if the wire is connected to the top part of the breadboard
-                    if (groundTopRow[(int) LEDPoint.getX() + 24] == true) {
+                    if (groundTopRow[(int) LEDPoint.getX() + 24] == true) {//updates the ground array
                         groundTopRow[(int) LEDPoint.getX()] = true;
+                    }
+                    if(resistorGroundTop[(int) LEDPoint.getX() + 24]) {//updates the resistor ground array
+                        resistorGroundTop[(int) LEDPoint.getX()] = true;
+                    }
+                    if(topRow[(int)LEDPoint.getX()] == true) {//updates the power array
+                        topRow[(int)LEDPoint.getX() + 24] = true;
                     }
                     if (resistorGroundTop[((int) LEDPoint.getX()) + 24] == true && topRow[(int) LEDPoint.getX()] == true && groundTopRow[(int) LEDPoint.getX()] == false && groundTopRow[(int) LEDPoint.getX() + 24] == false) {
                         ((LED) components.get(i)).setState(true);
@@ -112,14 +122,20 @@ public class CircuitEngine {
                         ((LED) components.get(i)).setState(false);
                     }
                 } else {//if the wire is connected to the bottom part of the breadboard
-                    if (groundBottomRow[(int) LEDPoint.getX() + 24] == true) {
+                    if (groundBottomRow[(int) LEDPoint.getX() + 24] == true) {//updates the ground array
                         groundBottomRow[(int) LEDPoint.getX()] = true;
+                    }
+                    if(resistorGroundBottom[(int) LEDPoint.getX() + 24]) {//updates the resistor ground array
+                        resistorGroundBottom[(int) LEDPoint.getX()] = true;
+                    }
+                    if(bottomRow[(int)LEDPoint.getX()] == true) {//updates the power array
+                        bottomRow[(int)LEDPoint.getX() + 24] = true;
                     }
                     if (resistorGroundBottom[((int) LEDPoint.getX()) + 24] == true && bottomRow[(int) LEDPoint.getX()] == true && groundBottomRow[(int) LEDPoint.getX()] == false && groundBottomRow[(int) LEDPoint.getX() + 24] == false) {
                         ((LED) components.get(i)).setState(true);
                         bottomRow[(int) LEDPoint.getX() + 24] = true;
                     } else {
-                        ((LED) components.get(i)).setState(true);
+                        ((LED) components.get(i)).setState(false);
                     }
                 }
             }
@@ -425,7 +441,6 @@ public class CircuitEngine {
         if (((Chip) components.get(i)).isPowered() && ((Chip) components.get(i)).isGrounded()) {
             int x = ((Chip) components.get(i)).getPoisiton();
             if (componentID == 3) {//checks all the outputs for a AND chip
-                System.out.println(((ANDChip) components.get(i)).getOutput(0));
                 topRow[x + (24 * 3)] = ((ANDChip) components.get(i)).getOutput(0);
                 topRow[x + (24 * 6)] = ((ANDChip) components.get(i)).getOutput(1);
                 bottomRow[x + (24 * 2)] = ((ANDChip) components.get(i)).getOutput(2);

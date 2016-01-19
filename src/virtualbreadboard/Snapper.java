@@ -200,7 +200,7 @@ public class Snapper {
             if (y < 469) {
                 return 458;
             } else {
-                return 484;
+                return 482;
             }
         }
         //returns the proper y position
