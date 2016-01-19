@@ -35,7 +35,7 @@ public class ANDChip extends Chip{
     public ANDChip(int x, int y) {
         super(x,y);
         try {
-                InputStream is = ANDChip.class.getResourceAsStream("Images//and_1.png");
+                InputStream is = ANDChip.class.getResourceAsStream("Images//and.png");
                 img = ImageIO.read(is);
             } catch (IOException e) {
                 System.out.println(e);

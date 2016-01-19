@@ -91,19 +91,19 @@ public class SchematicsMenu extends JFrame {
         //sets JPanel layout
         area.setLayout(null);
         //sets the JComponent's locations and size
-        ledButton.setBounds(850,10,100,30);
-        and.setBounds(850,80-20,100,30);
-        nand.setBounds(850,130-20,100,30);
-        or.setBounds(850,180-20,100,30);
-        nor.setBounds(850,230-20,100,30);
-        xor.setBounds(850,280-20,100,30);
-        not.setBounds(850,330-20,100,30);
-        wireButton.setBounds(850,380-20,100,30);
-        resistorButton.setBounds(850,430-20,100,30);
-        undoButton.setBounds(1000,10,100,30);
-        deleteButton.setBounds(1000,60,100,30);
-        back.setBounds(1000,110,100,30);
-        save.setBounds(1000,160,100,30);
+        ledButton.setBounds(850,73*0+15,100,(int)(30*1.3));
+        and.setBounds(850,73*1+15,100,(int)(30*1.3));
+        nand.setBounds(850,73*2+15,100,(int)(30*1.3));
+        or.setBounds(850,73*3+15,100,(int)(30*1.3));
+        nor.setBounds(850,73*4+15,100,(int)(30*1.3));
+        xor.setBounds(850,73*5+15,100,(int)(30*1.3));
+        not.setBounds(850,73*6+15,100,(int)(30*1.3));
+        wireButton.setBounds(1000,73*0+15,100,(int)(30*1.3));
+        resistorButton.setBounds(1000,73*1+15,100,(int)(30*1.3));
+        undoButton.setBounds(1000,73*2+15,100,(int)(30*1.3));
+        deleteButton.setBounds(1000,73*3+15,100,(int)(30*1.3));
+        back.setBounds(1000,73*4+15,100,(int)(30*1.3)*2);
+        save.setBounds(1000,73*5+50,100,(int)(30*1.3)*2);
         //adds MouseListeners to compnents
         undoButton.addMouseListener(undoL);
         deleteButton.addMouseListener(deleteL);
