@@ -33,16 +33,23 @@ public class ORChip extends Chip{
     boolean isGrounded;
     Image img;
     boolean pbb;
-    
+    /**
+     * primary constructor
+     * @param x the x position of the top left pin
+     * @param y the y position of the top left pin
+     */
     public ORChip(int x, int y) {
         super(x,y);
+        //loads the chip's image
         try {
                 InputStream is = ORChip.class.getResourceAsStream("Images/Or.png");
                 img = ImageIO.read(is);
             } catch (IOException e) {
                 System.out.println(e);
         }
+        //sets the size
         setSize(new Dimension(img.getWidth(null) - 20, img.getHeight(null)));
+        //sets the variables to their basic state
         for(int i = 0; i < 4; i++){
             output[i] = false;
             for(int k = 0; k < 2; k++){
@@ -52,30 +59,14 @@ public class ORChip extends Chip{
         isPowered = false;
         isGrounded = false;
     }
+    /**
+     * the secondary constructor used in the schematics menu
+     * @param p if the chip is in the schematics menu or not
+     */
     public ORChip(boolean p){
         super();
         setSize(186,75);
         pbb = p;
-    }
-    
-    public boolean outputState(boolean input1, boolean input2){
-        return input1==input2 != false;
-    }
-
-    public boolean[][] getInput() {
-        return input;
-    }
-
-    public boolean[] getOutput() {
-        return output;
-    }
-    
-    public void setInput(boolean[][] input) {
-        this.input = input;
-    }
-
-    public void setOutput(boolean[] output) {
-        this.output = output;
     }
     
     @Override

@@ -22,6 +22,7 @@ public class VirtualBreadBoard {
      * primary constructor
      */
     public VirtualBreadBoard() {
+        //instantizates all needed objects and sets the main menu visible
         menu = new MainMenu(this);
         bMenu = new BreadBoardMenu(this);
         cMenu = new CreditMenu(this);
@@ -30,11 +31,17 @@ public class VirtualBreadBoard {
         sMenu.getScreenshot(screenshot);
         menu.setVisible(true);
 }
+    /**
+     * switches between JFrames menus
+     * @param a the ID of the JFrame menu
+     */
     public void switchFrame(int a) {
+        //sets everything to invisible
         menu.setVisible(false);
         bMenu.setVisible(false);
         sMenu.setVisible(false);
         cMenu.setVisible(false);
+        //sets the selected frame to visible
         if(a == 1) {
             bMenu.setVisible(true);
             bMenu.repaint();

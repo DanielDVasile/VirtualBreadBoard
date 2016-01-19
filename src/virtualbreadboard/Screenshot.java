@@ -24,17 +24,26 @@ public class Screenshot {
         height = 0;
         width = 0;*/
     }
-    
+    /**
+     * returns the location of the JFrame
+     * @return the location of the JFrame
+     */
     public Point getLocation(){
         Point location = frame.getLocation();
         return location;
     }
-    
+    /**
+     * returns the height of the FFrame
+     * @return the height of the JFrame
+     */
     public int getHeight(){
         int height = frame.getHeight();
         return height;
     }
-    
+    /**
+     * returns the width of the JFrame
+     * @return the width of the JFrame
+     */
     public int getWidth(){
         int width = frame.getWidth();
         return width;

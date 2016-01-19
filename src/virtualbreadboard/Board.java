@@ -21,10 +21,13 @@ import javax.swing.JComponent;
 public class Board extends JComponent {
 
     Image img;
-
+    /**
+     * primary constructor
+     * @param pbb boolean if the board should be a ppb board or a regular board
+     */
     public Board(boolean pbb) {
-
         if (pbb == false) {
+            //loads regular breadboard image
             try {
                 InputStream is = Board.class.getResourceAsStream("Images/board.jpg");
                 img = ImageIO.read(is);
@@ -32,6 +35,7 @@ public class Board extends JComponent {
                 System.out.println(e);
             }
         } else {
+            //loads pcb breadboard image
             try {
                 InputStream is = Board.class.getResourceAsStream("Images//board-PCB.jpg");
                img = ImageIO.read(is);
@@ -39,9 +43,13 @@ public class Board extends JComponent {
                 System.out.println(e);
             }
         }
+        //sets size of JComponent
         setSize(getDim());
     }
-
+    /**
+     * returns the dimension of the image
+     * @return the dimension of the image
+     */
     public Dimension getDim() {
         return new Dimension(img.getWidth(null), img.getHeight(null));
     }

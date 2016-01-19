@@ -17,7 +17,10 @@ public class CreditMenu extends JFrame {
     JLabel trevor;
     JLabel zack;
     JLabel intro;
-
+    /**
+     * primary constructor
+     * @param main main class to switch between frames
+     */
     public CreditMenu(VirtualBreadBoard main) {
         this.main = main;
         //sets JFrame's size, background color, and exit operation.

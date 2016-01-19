@@ -52,16 +52,16 @@ public class MainMenu extends JFrame{
      * MouseListener which is used to detect if the exit button has been pressed
      */
     public MouseListener exitL = new MouseListener(){
-    
-        public void mouseClicked(MouseEvent e) {
-        }
-
         @Override
-        public void mousePressed(MouseEvent e) {
+        public void mouseClicked(MouseEvent e) {
             Point x = e.getPoint();
             if(exit.contains(x)) {
                 System.exit(0);
             }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
         }
 
         @Override
@@ -83,13 +83,13 @@ public class MainMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            if(breadBoardMenu.contains(e.getPoint())) {
+                main.switchFrame(main.BREAD_BOARD_MENU);
+            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            if(breadBoardMenu.contains(e.getPoint())) {
-                main.switchFrame(main.BREAD_BOARD_MENU);
-            }
         }
 
         @Override
@@ -112,13 +112,13 @@ public class MainMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            if(schematicsMenu.contains(e.getPoint())) {
+                main.switchFrame(main.CREDIT_MENU);
+            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            if(schematicsMenu.contains(e.getPoint())) {
-                main.switchFrame(main.CREDIT_MENU);
-            }
         }
 
         @Override
@@ -141,13 +141,13 @@ public class MainMenu extends JFrame{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            if(credits.contains(e.getPoint())) {
+                main.switchFrame(main.SCHEMATICS_MENU);
+            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            if(credits.contains(e.getPoint())) {
-                main.switchFrame(main.SCHEMATICS_MENU);
-            }
         }
 
         @Override
