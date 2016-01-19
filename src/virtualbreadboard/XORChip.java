@@ -33,7 +33,11 @@ public class XORChip extends Chip{
     boolean isGrounded;
     Image img;
     boolean pbb;
-    
+    /**
+     * primary constructor
+     * @param x the x position of the top left pin
+     * @param y the y position of the top left pin
+     */
     public XORChip(int x, int y) {
         super(x,y);
         try {
@@ -52,37 +56,24 @@ public class XORChip extends Chip{
         isPowered = false;
         isGrounded = false;
     }
+    /**
+     * the secondary constructor used in the schematics menu
+     * @param p if the chip is in the schematics menu or not
+     */
     public XORChip(boolean p){
         super();
         setSize(186,75);
         pbb = p;
     }
-    public boolean outputState(boolean input1, boolean input2){
-        return input1!=input2;
-    }
 
-    public boolean[][] getInput() {
-        return input;
-    }
-
-    public boolean[] getOutput() {
-        return output;
-    }
-    
-    public void setInput(boolean[][] input) {
-        this.input = input;
-    }
-
-    public void setOutput(boolean[] output) {
-        this.output = output;
-    }
-    
     @Override
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D)(g);
         if (pbb == false) {
+            //draws the chip's image
             g2d.drawImage(img, 0 - 10, 0, null);
         } else {
+            //draws a white rectangle with the chip's name in the middle
             g2d.setStroke(new BasicStroke(2));
             g2d.setColor(Color.white);
             g2d.drawRect(0, 0, 24*7+3, 73);

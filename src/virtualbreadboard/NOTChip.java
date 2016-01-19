@@ -9,11 +9,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,16 +32,23 @@ public class NOTChip extends Chip{
     Image img;
     boolean pbb;
     
-    
+    /**
+     * primary constructor
+     * @param x the x position of the top left pin
+     * @param y the y position of the top left pin
+     */
     public NOTChip(int x, int y) {
         super(x,y);
+        //loads the chips image
         try {
                 InputStream is = NOTChip.class.getResourceAsStream("Images/Not.png");
                 img = ImageIO.read(is);
             } catch (IOException e) {
                 System.out.println(e);
         }
+        //sets the JComponent's size
         setSize(new Dimension(img.getWidth(null) - 20, img.getHeight(null)));
+        //sets variables to their basic state
         for(int i = 0; i < 6; i++){
             input[i] = false;
             output[i] = false;
@@ -51,38 +56,24 @@ public class NOTChip extends Chip{
         isPowered = false;
         isGrounded = false;
     }
+    /**
+     * secondary constructor, used in the Schematics menu
+     * @param p whether or not the chip is in the schematics menu
+     */
     public NOTChip(boolean p){
         super();
         setSize(186,75);
         pbb = p;
     }
     
-    public boolean outputState(boolean input){
-        return input != true;
-    }
-
-    public boolean[] getInput() {
-        return input;
-    }
-
-    public boolean[] getOutput() {
-        return output;
-    }
-    
-    public void setInput(boolean[] input) {
-        this.input = input;
-    }
-
-    public void setOutput(boolean[] output) {
-        this.output = output;
-    }
-    
     @Override
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D)(g);
         if (pbb == false) {
+            //draws the chips image
             g2d.drawImage(img, -10, 0, null);
         } else {
+            //draws a white square with the chip's name in the middle
             g2d.setStroke(new BasicStroke(2));
             g2d.setColor(Color.white);
             g2d.drawRect(0, 0, 24*7+3, 73);

@@ -9,11 +9,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,16 +31,23 @@ public class NANDChip extends Chip{
     boolean isGrounded;
     Image img;
     boolean pbb;
-
+    /**
+     * primary constructor
+     * @param x the x position of the top left pin
+     * @param y the y position of the top left pin
+     */
     public NANDChip(int x, int y) {
         super(x,y);
+        //loads the image for the NAND chip
         try {
                 InputStream is = NANDChip.class.getResourceAsStream("Images/Nand.png");
                 img = ImageIO.read(is);
             } catch (IOException e) {
                 System.out.println(e);
         }
+        //sets the size of the JComponent
         setSize(new Dimension(img.getWidth(null) - 20, img.getHeight(null)));
+        //sets all variables to their basic state
         for(int i = 0; i < 4; i++){
             output[i] = false;
             for(int k = 0; k < 2; k++){
@@ -52,30 +57,14 @@ public class NANDChip extends Chip{
         isPowered = false;
         isGrounded = false;
     }
+    /**
+     * secondary constructor used for schematics menu
+     * @param p the 
+     */
     public NANDChip(boolean p){
         super();
         setSize(186,75);
         pbb = p;
-    }
-    
-    public boolean outputState(boolean input1, boolean input2){
-        return input1 != input2;
-    }
-
-    public boolean[][] getInput() {
-        return input;
-    }
-    
-    public boolean[] getOutput() {
-        return output;
-    }
-    
-    public void setInput(boolean[][] input) {
-        this.input = input;
-    }
-
-    public void setOutput(boolean[] output) {
-        this.output = output;
     }
     
     @Override

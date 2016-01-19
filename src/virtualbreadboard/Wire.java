@@ -36,28 +36,31 @@ public class Wire extends JComponent {
      */
     public Wire(int startx, int starty, int endx, int endy) {
         if (starty == 26 || starty == 458 || endy == 26 || endy == 458) {//if the wire is connected to the ground rows
+            //sets the wire to be a grounding wire
             groundWire = true;
-            if(starty == 26 || starty == 458) {
+            if(starty == 26 || starty == 458) {//if the first point is conected to the ground
                 powerPin = new Point(endx, endy);
-                groundPin = new Point(startx, starty);
+                groundPin = new Point(startx, starty);//the ground co-ordinates are set to the groundPin
             } else {
                 powerPin = new Point(startx, starty);
-                groundPin = new Point(endx, endy);
+                groundPin = new Point(endx, endy);//the ground co-ordinates are set to the groundPin
             }
         } else if(starty == 26 + 24 || starty == 458 + 24 || endy == 26 + 24 || endy == 458 + 24) {//if the wire is connected to the power rows
+            //sets the wire to be a power wire
             powerWire = true;
-            if(starty == 26 + 24 || starty == 458 + 24) {
-                powerPin = new Point(startx, starty);
+            if(starty == 26 + 24 || starty == 458 + 24) {//if the first point is conected to the power
+                powerPin = new Point(startx, starty);//the power co-ordinates are set to the powerPin
                 groundPin = new Point(endx, endy);
             } else {
                 groundPin = new Point(startx, starty);
-                powerPin = new Point(endx, endy);
+                powerPin = new Point(endx, endy);//the power co-ordinates are set to the powerPin
             }
         } else {//otherwise it is a connecting wire
             groundWire = false;
             powerWire = false;
             powerPin = new Point(startx, starty);
             groundPin = new Point(endx, endy);
+            //the wire is not powered
             state = false;
         }
         setSize(1000, 1000);
