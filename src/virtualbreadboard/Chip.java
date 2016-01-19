@@ -23,7 +23,7 @@ public abstract class Chip extends JComponent {
     
     public Chip(int x, int y){
         powerPin = new Point(x,y);
-        groundPin = new Point();
+        groundPin = new Point(x + (6 * 24), y + 20);
     }
     public Chip(){
         
