@@ -6,6 +6,7 @@ package virtualbreadboard;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class BreadBoardMenu extends JFrame {
     JButton resistorButton;
     JButton undoButton;
     JButton deleteButton;
+    JButton stopRun;
     LED ledGreen;
     LED ledBlue;
     LED ledRed;
@@ -48,6 +50,7 @@ public class BreadBoardMenu extends JFrame {
     boolean notP = false;
     boolean orP = false;
     boolean xorP = false;
+    boolean simulating;
     ArrayList<JComponent> componentList = new ArrayList();
     ArrayList<Integer> componentListID = new ArrayList();
     int x1 = 0;
@@ -67,13 +70,14 @@ public class BreadBoardMenu extends JFrame {
         setSize(1300, 562);
         setBackground(Color.DARK_GRAY);
         //instanitates all nesscary components
-        ledID = 0;
+        simulating = false;
+        ledID = 1;
         ledGreen = new LED(1, 0, 0);
-        ledGreen.setPower(true);
+        ledGreen.setState(true);
         ledRed = new LED(2, 0, 0);
-        ledRed.setPower(true);
+        ledRed.setState(true);
         ledBlue = new LED(3, 0, 0);
-        ledBlue.setPower(true);
+        ledBlue.setState(true);
         and = new ANDChip(0, 0);
         nand = new NANDChip(0, 0);
         nor = new NORChip(0, 0);
@@ -87,6 +91,7 @@ public class BreadBoardMenu extends JFrame {
         resistorButton = new JButton("Resistor");
         undoButton = new JButton("Undo");
         deleteButton = new JButton("Delete");
+        stopRun = new JButton("Stop Simulation");
         snapper = new Snapper();
         //sets JPanel layout
         area.setLayout(null);
@@ -95,6 +100,7 @@ public class BreadBoardMenu extends JFrame {
         undoButton.setBounds(1050, 300, 100, 30);
         deleteButton.setBounds(1050, 350, 100, 30);
         resistorButton.setBounds(1150, 250, 100, 30);
+        stopRun.setBounds(1050,400,200,30);
         run.setBounds(1150, 300, 100, 30);
         back.setBounds(1150, 350, 100, 30);
         ledGreen.setBounds(850, 0, ledGreen.getWidth(), ledGreen.getHeight());
@@ -107,15 +113,16 @@ public class BreadBoardMenu extends JFrame {
         xor.setLocation(1050, 50);
         not.setLocation(1050, 150);
         //adds MouseListeners to compnents
+        stopRun.addMouseListener(stopRunL);
         undoButton.addMouseListener(undoL);
         deleteButton.addMouseListener(deleteL);
         resistorButton.addMouseListener(resistorL);
         run.addMouseListener(runL);
         back.addMouseListener(backL);
         wireButton.addMouseListener(wireL);
-        ledGreen.addMouseListener(ledL);
-        ledRed.addMouseListener(ledL);
-        ledBlue.addMouseListener(ledL);
+        ledGreen.addMouseListener(ledLGreen);
+        ledRed.addMouseListener(ledLRed);
+        ledBlue.addMouseListener(ledLBlue);
         board.addMouseListener(boardL);
         and.addMouseListener(andL);
         nand.addMouseListener(nandL);
@@ -128,7 +135,36 @@ public class BreadBoardMenu extends JFrame {
         //adds JPanel area to this class
         add(area);
     }
+    /**
+     * checks for when the user wants to stop the simulation to add more components on
+     */
+    MouseListener stopRunL = new MouseListener() {
 
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if(stopRun.contains(e.getPoint())) {
+            resetAllStates();
+            simulating = false;
+            repaint();
+            }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+    };
     /**
      * MouseListener used to check if the user clicked on the run button.
      */
@@ -141,7 +177,10 @@ public class BreadBoardMenu extends JFrame {
         @Override
         public void mousePressed(MouseEvent e) {
             if (run.contains(e.getPoint())) {
+                simulating = true;
+                CircuitEngine engine = new CircuitEngine(componentList, componentListID);
             }
+            repaint();
         }
 
         @Override
@@ -185,9 +224,9 @@ public class BreadBoardMenu extends JFrame {
         }
     };
     /**
-     * MouseListener used to check if the user clicked on the LED button.
+     * MouseListener used to check if the user clicked on the green LED button.
      */
-    MouseListener ledL = new MouseListener() {
+    MouseListener ledLGreen = new MouseListener() {
 
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -196,32 +235,40 @@ public class BreadBoardMenu extends JFrame {
         @Override
         public void mousePressed(MouseEvent e) {
             if (ledGreen.contains(e.getPoint())) {
-                if (ledP == false) {
-                    resetPlacer();
-                    ledP = true;
-                    ledID = 1;
-                } else {
-                    ledP = false;
-                }
+                resetPlacer();
+                ledID = 1;
+                ledP = true;
+            }
+                
+        }
 
-            }
-            if (ledRed.contains(e.getPoint())) {
-                if (ledP == false) {
-                    resetPlacer();
-                    ledP = true;
-                    ledID = 2;
-                } else {
-                    ledP = false;
-                }
-            }
-            if (ledBlue.contains(e.getPoint())) {
-                if (ledP == false) {
-                    resetPlacer();
-                    ledP = true;
-                    ledID = 3;
-                } else {
-                    ledP = false;
-                }
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+    };
+    /**
+     * checks to see if the user clicked on the red led button
+     */
+    MouseListener ledLRed = new MouseListener() {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if(ledRed.contains(e.getPoint())) {
+                resetPlacer();
+                ledP = true;
+                ledID = 2;
             }
         }
 
@@ -238,6 +285,37 @@ public class BreadBoardMenu extends JFrame {
         }
     };
     /**
+     * checks to see if the user clicked on the blue led button
+     */
+    MouseListener ledLBlue = new MouseListener() {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if(ledBlue.contains(e.getPoint())) {
+                resetPlacer();
+                ledP = true;
+                ledID = 3;
+            }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+        
+    };
+    /**
      * MouseListener used to check if the user clicked on the Board button.
      */
     MouseListener boardL = new MouseListener() {
@@ -248,7 +326,7 @@ public class BreadBoardMenu extends JFrame {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            if (board.contains(e.getPoint())) {
+            if (board.contains(e.getPoint()) && !simulating) {
                 if (ledP == true) {
                     x1 = snapper.snapToX((int) e.getPoint().getX());
                     y1 = snapper.snapToY((int) e.getPoint().getY());
@@ -270,7 +348,6 @@ public class BreadBoardMenu extends JFrame {
                     if (!wireStep2) {
                         x1 = snapper.wSnapToX(e.getX(), e.getY());
                         y1 = snapper.wSnapToY(e.getY());
-                        System.out.println(y1);
                         if (!snapper.pinUsed(x1, y1)) {
                             wireStep2 = true;
                         } else {
@@ -280,7 +357,6 @@ public class BreadBoardMenu extends JFrame {
                         x2 = snapper.wSnapToX(e.getX(), e.getY());
                         y2 = snapper.wSnapToY(e.getY());
                         if (!snapper.pinUsed(x2, y2) && !snapper.connectsInOut(x1, y1, x2, y2)) {
-                            System.out.println(!snapper.connectsInOut(x1, y1, x2, y2));
                             wireStep2 = false;
                             componentListID.add(0, 2);
                             componentList.add(0, new Wire(x1, y1, x2, y2));
@@ -302,7 +378,7 @@ public class BreadBoardMenu extends JFrame {
                     if (!snapper.cPinUsed(x1, y1, 3)) {
                         componentList.add(0, new ANDChip(x1, y1));
                         componentListID.add(0, 3);
-                        ((ANDChip) componentList.get(0)).setLocation(x1 - 21, y1);
+                        ((ANDChip) componentList.get(0)).setLocation(x1 - 11, y1);
                         area.removeAll();
                         repaint();
                         redrawAll();
@@ -314,7 +390,7 @@ public class BreadBoardMenu extends JFrame {
                     if (!snapper.cPinUsed(x1, y1, 4)) {
                         componentListID.add(0, 4);
                         componentList.add(0, new NANDChip(x1, y1));
-                        ((NANDChip) componentList.get(0)).setLocation(x1 - 21, y1);
+                        ((NANDChip) componentList.get(0)).setLocation(x1 - 11, y1);
                         area.removeAll();
                         repaint();
                         redrawAll();
@@ -326,7 +402,7 @@ public class BreadBoardMenu extends JFrame {
                     if (!snapper.cPinUsed(x1, y1, 5)) {
                         componentList.add(0, new NORChip(x1, y1));
                         componentListID.add(0, 5);
-                        ((NORChip) componentList.get(0)).setLocation(x1 - 21, y1);
+                        ((NORChip) componentList.get(0)).setLocation(x1 - 11, y1);
                         area.removeAll();
                         repaint();
                         redrawAll();
@@ -338,7 +414,7 @@ public class BreadBoardMenu extends JFrame {
                     if (!snapper.cPinUsed(x1, y1, 6)) {
                         componentList.add(0, new NOTChip(x1, y1));
                         componentListID.add(0, 6);
-                        ((NOTChip) componentList.get(0)).setLocation(x1 - 21, y1);
+                        ((NOTChip) componentList.get(0)).setLocation(x1 - 11, y1);
                         area.removeAll();
                         repaint();
                         redrawAll();
@@ -350,7 +426,7 @@ public class BreadBoardMenu extends JFrame {
                     if (!snapper.cPinUsed(x1, y1, 7)) {
                         componentList.add(0, new ORChip(x1, y1));
                         componentListID.add(0, 7);
-                        ((ORChip) componentList.get(0)).setLocation(x1 - 21, y1);
+                        ((ORChip) componentList.get(0)).setLocation(x1 - 11, y1);
                         area.removeAll();
                         repaint();
                         redrawAll();
@@ -362,7 +438,7 @@ public class BreadBoardMenu extends JFrame {
                     if (!snapper.cPinUsed(x1, y1, 8)) {
                         componentList.add(0, new XORChip(x1, y1));
                         componentListID.add(0, 8);
-                        ((XORChip) componentList.get(0)).setLocation(x1 - 21, y1);
+                        ((XORChip) componentList.get(0)).setLocation(x1 - 11, y1);
                         area.removeAll();
                         repaint();
                         redrawAll();
@@ -707,7 +783,7 @@ public class BreadBoardMenu extends JFrame {
                     } else if (componentListID.get(0) == 2) {
                         snapper.resetWirePin(((Wire) componentList.get(0)).getPowerPin(), ((Wire) componentList.get(0)).getGroundPin());
                     } else if (componentListID.get(0) >= 3 && componentListID.get(0) <= 8) {
-                        snapper.resetChipPin(((Chip) componentList.get(0)).getPoisiton());
+                        snapper.resetChipPin(new Point(((Chip) componentList.get(0)).getPoisiton(), 217));
                     } else if (componentListID.get(0) == 9) {
                         snapper.resetWirePin(((Resistor) componentList.get(0)).getPowerPin(), ((Resistor) componentList.get(0)).getGroundPin());
                     }
@@ -802,6 +878,7 @@ public class BreadBoardMenu extends JFrame {
         area.add(resistorButton);
         area.add(undoButton);
         area.add(deleteButton);
+        area.add(stopRun);
     }
 
     /**
@@ -833,5 +910,25 @@ public class BreadBoardMenu extends JFrame {
             area.add(componentList.get(i));
         }
         setup();
+    }
+    
+    public void resetAllStates() {
+        for (int i = 0; i < componentList.size(); i++) {
+            if(componentListID.get(i) == 1) {
+                ((LED)componentList.get(i)).resetState();
+            } else if(componentListID.get(i) == 3) {
+                ((ANDChip)componentList.get(i)).resetState();
+            } else if(componentListID.get(i) == 4) {
+                ((NANDChip)componentList.get(i)).resetState();
+            } else if(componentListID.get(i) == 5) {
+                ((NORChip)componentList.get(i)).resetState();
+            } else if(componentListID.get(i) == 6) {
+                ((NOTChip)componentList.get(i)).resetState();
+            } else if(componentListID.get(i) == 7) {
+                ((ORChip)componentList.get(i)).resetState();
+            } else if(componentListID.get(i) == 8) {
+                ((XORChip)componentList.get(i)).resetState();
+            }
+        }
     }
 }

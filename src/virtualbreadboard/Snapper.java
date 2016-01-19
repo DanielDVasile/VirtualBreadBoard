@@ -61,6 +61,7 @@ public class Snapper {
      */
     public int wSnapToX(int x, int y) {
         int helper = x;
+        int temp = 0;
         //if the user clicked near the top row of points
         if (y < 120) {
             //checks if the user clicked outside the bounds of the breadboard, and returns the closest point
@@ -74,6 +75,7 @@ public class Snapper {
                 if (helper <= 99 + (24 * i)) {
                     helper = 86 + (24 * i);
                     i = 100;
+                    temp = i;
                 }
             }
             //if the user clicked near the bottom row of points
@@ -88,7 +90,8 @@ public class Snapper {
 
                 if (helper <= 99 + (24 * i)) {
                     helper = 86 + (24 * i);
-                    i = 101;
+                    i = 100;
+                    temp = 100;
                 }
             }
             //if the user clicked near the two middle rows of points
@@ -107,6 +110,7 @@ public class Snapper {
             }
         }
         //since there aren't always points in the breadboard, if the program snapped to somewhere where it thought there was one, it snapps to the closest real point
+        if(temp == 100) {
         if (helper == 206) {
             helper -= 24;
         } else if (helper == 350) {
@@ -115,6 +119,7 @@ public class Snapper {
             helper -= 24;
         } else if (helper == 638) {
             helper -= 24;
+        }
         }
         return helper;
 

@@ -47,7 +47,7 @@ public class LED extends JComponent  {
     private void setColor(int x) {
         if (isPowered == false){
             try {
-                InputStream is = LED.class.getResourceAsStream("Images//Led White.png");
+                InputStream is = LED.class.getResourceAsStream("Images/Led White.png");
                 img = ImageIO.read(is);
             } catch (IOException e) {
                 System.out.println(e);
@@ -105,13 +105,18 @@ public class LED extends JComponent  {
         return new Dimension(img.getWidth(null), img.getHeight(null));
     }
     
-    public void setPower(boolean bool){
+    public void setState(boolean bool){
         isPowered = bool;
         setColor(color);
     }
     
     public Point getPosition() {
         return powerPin;
+    }
+    
+    public void resetState() {
+        isPowered = false;
+        setColor(color);
     }
     
 }
