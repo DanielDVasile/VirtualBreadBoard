@@ -204,7 +204,7 @@ public class SchematicsMenu extends JFrame {
                     x1 = snapper.snapToX((int) e.getPoint().getX());
                     y1 = snapper.snapToY((int) e.getPoint().getY());
                     //makes sure you cant place an LED off the edge of the breadboard
-                    if (x1 >= 783) {
+                    if (x1 >= 783 - 60) {
                         JOptionPane.showMessageDialog(null, "You cannot place an LED here");
                     } else if (!snapper.ledPinUsed(x1, y1)) {
                         componentList.add(0, new LED());
