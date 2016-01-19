@@ -50,6 +50,7 @@ public class BreadBoardMenu extends JFrame {
     boolean notP = false;
     boolean orP = false;
     boolean xorP = false;
+    boolean simulating;
     ArrayList<JComponent> componentList = new ArrayList();
     ArrayList<Integer> componentListID = new ArrayList();
     int x1 = 0;
@@ -69,6 +70,7 @@ public class BreadBoardMenu extends JFrame {
         setSize(1300, 562);
         setBackground(Color.DARK_GRAY);
         //instanitates all nesscary components
+        simulating = false;
         ledID = 1;
         ledGreen = new LED(1, 0, 0);
         ledGreen.setState(true);
@@ -144,8 +146,11 @@ public class BreadBoardMenu extends JFrame {
 
         @Override
         public void mousePressed(MouseEvent e) {
+            if(stopRun.contains(e.getPoint())) {
             resetAllStates();
+            simulating = false;
             repaint();
+            }
         }
 
         @Override
@@ -172,6 +177,7 @@ public class BreadBoardMenu extends JFrame {
         @Override
         public void mousePressed(MouseEvent e) {
             if (run.contains(e.getPoint())) {
+                simulating = true;
                 CircuitEngine engine = new CircuitEngine(componentList, componentListID);
             }
             repaint();
@@ -320,7 +326,7 @@ public class BreadBoardMenu extends JFrame {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            if (board.contains(e.getPoint())) {
+            if (board.contains(e.getPoint()) && !simulating) {
                 if (ledP == true) {
                     x1 = snapper.snapToX((int) e.getPoint().getX());
                     y1 = snapper.snapToY((int) e.getPoint().getY());
