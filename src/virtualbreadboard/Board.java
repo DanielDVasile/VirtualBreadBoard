@@ -26,7 +26,7 @@ public class Board extends JComponent {
 
         if (pbb == false) {
             try {
-                InputStream is = Board.class.getResourceAsStream("Images//board.jpg");
+                InputStream is = Board.class.getResourceAsStream("Images/board.jpg");
                 img = ImageIO.read(is);
             } catch (IOException e) {
                 System.out.println(e);

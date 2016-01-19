@@ -24,6 +24,8 @@ public class CircuitEngine {
     boolean bottomGroundRow[];
     boolean groundTopRow[];
     boolean groundBottomRow[];
+    boolean resistorGroundTop[];
+    boolean resistorGroundBottom[];
 
     /**
      * primary constructor
@@ -45,6 +47,8 @@ public class CircuitEngine {
         bottomGroundRow = new boolean[800];
         groundTopRow = new boolean[800];
         groundBottomRow = new boolean[800];
+        resistorGroundTop = new boolean[800];
+        resistorGroundBottom = new boolean[800];
         fillArrays();
         simulateCircuit();
     }
@@ -53,6 +57,7 @@ public class CircuitEngine {
      * simulates the circuit
      */
     final public void simulateCircuit() {
+        checkResistors();
         for (int i = 0; i < numOfLoops; i++) {
             checkWires();
             checkChips();
@@ -71,7 +76,7 @@ public class CircuitEngine {
         }
         for (int i = 0; i < componentID.size(); i++) {
             for (int j = 0; j < components.size(); j++) {
-                if (componentID.get(i) == 2) {
+                if (componentID.get(j) == 2) {
                     updateWireBoard(j);
                 }
             }
@@ -82,14 +87,31 @@ public class CircuitEngine {
      * checks and updates the power status and output status of logical chips
      */
     public void checkChips() {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < components.size(); j++) {
 
+            }
+        }
     }
 
     /**
      * checks the power status of the LEDs
      */
     public void checkLEDs() {
-
+        for (int i = 0; i < components.size(); i++) {
+            if (componentID.get(i) == 1) {
+                Point LEDPoint = ((LED)components.get(i)).getPosition();
+                if (LEDPoint.getY() < 280 && LEDPoint.getY() > 100) {//if the wire is connected to the top part of the breadboard
+                    if( resistorGroundTop[((int)LEDPoint.getX())+ 24] == true && topRow[(int)LEDPoint.getX()] == true && groundTopRow[(int)LEDPoint.getX()] == false) {
+                        ((LED)components.get(i)).setState(true);
+                    }
+                } else {//if the wire is connected to the bottom part of the breadboard
+                    if( resistorGroundBottom[((int)LEDPoint.getX())+ 24] == true && bottomRow[(int)LEDPoint.getX()] == true && groundBottomRow[(int)LEDPoint.getX()] == false) {
+                        ((LED)components.get(i)).setState(true);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -119,6 +141,12 @@ public class CircuitEngine {
         }
         for (int i = 0; i < 800; i++) {
             groundTopRow[i] = false;
+        }
+        for (int i = 0; i < 800; i++) {
+            resistorGroundBottom[i] = false;
+        }
+        for (int i = 0; i < 800; i++) {
+            resistorGroundTop[i] = false;
         }
     }
 
@@ -282,6 +310,21 @@ public class CircuitEngine {
             groundTopRow[(int) wirePoint.getX()] = true;//grounds the row the wire is connected to
         } else if (wirePoint.getY() > 250 && wirePoint.getY() < 410) {//if the wire is connected to the bottom part of the breadboard
             groundBottomRow[(int) wirePoint.getX()] = true;//grounds the row the wire is conntected to
+        }
+    }
+    /**
+     * checks to see which rows are grounded by a resistor, and updates the boolean array of resistor grounded rows
+     */
+    public void checkResistors() {
+        for (int i = 0; i < components.size(); i++) {
+            if (componentID.get(i) == 9) {
+                Point wirePoint = ((Resistor) components.get(i)).getGroundPin();
+                if (wirePoint.getY() < 280 && wirePoint.getY() > 100) {//if the wire is connected to the top part of the breadboard
+                    resistorGroundTop[(int)wirePoint.getX()] = true;
+                } else {//if the wire is connected to the bottom part of the breadboard
+                    resistorGroundBottom[(int)wirePoint.getX()] = true;
+                }
+            }
         }
     }
 }

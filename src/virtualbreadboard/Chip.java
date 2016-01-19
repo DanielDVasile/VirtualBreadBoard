@@ -35,6 +35,6 @@ public abstract class Chip extends JComponent {
         paint(g);
     }
     
-    abstract public Point getPoisiton();
+    abstract public int getPoisiton();
     
 }

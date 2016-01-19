@@ -29,6 +29,8 @@ public class NOTChip extends Chip{
     
     boolean input[] = new boolean[6];
     boolean output[] = new boolean[6];
+    boolean isPowered;
+    boolean isGrounded;
     Image img;
     boolean pbb;
     
@@ -36,16 +38,18 @@ public class NOTChip extends Chip{
     public NOTChip(int x, int y) {
         super(x,y);
         try {
-                InputStream is = NOTChip.class.getResourceAsStream("Images//Not.png");
+                InputStream is = NOTChip.class.getResourceAsStream("Images/Not.png");
                 img = ImageIO.read(is);
             } catch (IOException e) {
                 System.out.println(e);
         }
-        setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
+        setSize(new Dimension(img.getWidth(null) - 20, img.getHeight(null)));
         for(int i = 0; i < 6; i++){
             input[i] = false;
             output[i] = false;
         }
+        isPowered = false;
+        isGrounded = false;
     }
     public NOTChip(boolean p){
         super();
@@ -77,7 +81,7 @@ public class NOTChip extends Chip{
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D)(g);
         if (pbb == false) {
-            g2d.drawImage(img, 0, 0, null);
+            g2d.drawImage(img, -10, 0, null);
         } else {
             g2d.setStroke(new BasicStroke(2));
             g2d.setColor(Color.white);
@@ -85,10 +89,25 @@ public class NOTChip extends Chip{
             g2d.drawString("NOT", 150/2, 76/2);
         }
     }
-
+    /**
+     * returns the x position of the logical chip
+     * @return the x position of the logical chip
+     */
     @Override
-    public Point getPoisiton() {
-        return powerPin;
+    public int getPoisiton() {
+        return (int)powerPin.getX();
+    }
+    /**
+     * resets the chip to a state where all input, outputs, ground, and power
+     * are false
+     */
+    public void resetState() {
+        for (int i = 0; i < 6; i++) {
+            input[i] = false;
+            output[i] = false;
+        }
+        isPowered = false;
+        isGrounded = false;
     }
     
 }

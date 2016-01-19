@@ -29,24 +29,28 @@ public class NANDChip extends Chip{
     
     boolean input[][] = new boolean[4][2];
     boolean output[] = new boolean[4];
+    boolean isPowered;
+    boolean isGrounded;
     Image img;
     boolean pbb;
 
     public NANDChip(int x, int y) {
         super(x,y);
         try {
-                InputStream is = NANDChip.class.getResourceAsStream("Images//Nand.png");
+                InputStream is = NANDChip.class.getResourceAsStream("Images/Nand.png");
                 img = ImageIO.read(is);
             } catch (IOException e) {
                 System.out.println(e);
         }
-        setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
+        setSize(new Dimension(img.getWidth(null) - 20, img.getHeight(null)));
         for(int i = 0; i < 4; i++){
             output[i] = false;
             for(int k = 0; k < 2; k++){
                 input[i][k] = false;
             }
         }
+        isPowered = false;
+        isGrounded = false;
     }
     public NANDChip(boolean p){
         super();
@@ -78,7 +82,7 @@ public class NANDChip extends Chip{
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D)(g);
         if (pbb == false) {
-            g2d.drawImage(img, 0, 0, null);
+            g2d.drawImage(img, -10, 0, null);
         } else {
             g2d.setStroke(new BasicStroke(2));
             g2d.setColor(Color.white);
@@ -86,11 +90,28 @@ public class NANDChip extends Chip{
             g2d.drawString("NAND", 150/2, 76/2);
         }
     }
-
-
+    /**
+     * returns the x position of the logical chip
+     * @return the x position of the logical chip
+     */
     @Override
-    public Point getPoisiton() {
-        return powerPin;
+    public int getPoisiton() {
+        return (int)powerPin.getX();
+    }
+    
+    /**
+     * resets the chip to a state where all input, outputs, ground, and power
+     * are false
+     */
+    public void resetState() {
+        for (int i = 0; i < 4; i++) {
+            output[i] = false;
+            for (int k = 0; k < 2; k++) {
+                input[i][k] = false;
+            }
+        }
+        isPowered = false;
+        isGrounded = false;
     }
     
 }
