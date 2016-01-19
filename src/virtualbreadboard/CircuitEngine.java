@@ -444,35 +444,35 @@ public class CircuitEngine {
     public void checkChipOutput(int i, int componentID) {
         if (((Chip) components.get(i)).isPowered() && ((Chip) components.get(i)).isGrounded()) {
             int x = ((Chip) components.get(i)).getPoisiton();
-            if (componentID == 3) {
+            if (componentID == 3) {//checks all the outputs for a AND chip
                 System.out.println(((ANDChip) components.get(i)).getOutput(0));
                 topRow[x + (24 * 3)] = ((ANDChip) components.get(i)).getOutput(0);
                 topRow[x + (24 * 6)] = ((ANDChip) components.get(i)).getOutput(1);
                 bottomRow[x + (24 * 2)] = ((ANDChip) components.get(i)).getOutput(2);
                 bottomRow[x + (24 * 5)] = ((ANDChip) components.get(i)).getOutput(3);
-            } else if (componentID == 4) {
+            } else if (componentID == 4) {//checks all the outputs for a NAND chip
                 topRow[x + 24 * 3] = ((NANDChip) components.get(i)).getOutput(0);
                 topRow[x + 24 * 6] = ((NANDChip) components.get(i)).getOutput(1);
                 bottomRow[x + 24 * 2] = ((NANDChip) components.get(i)).getOutput(2);
                 bottomRow[x + 24 * 5] = ((NANDChip) components.get(i)).getOutput(3);
-            } else if (componentID == 5) {
+            } else if (componentID == 5) {//checks all the outputs for a NOR chip
                 topRow[x + 24 * 3] = ((NORChip) components.get(i)).getOutput(0);
                 topRow[x + 24 * 6] = ((NORChip) components.get(i)).getOutput(1);
                 bottomRow[x + 24 * 2] = ((NORChip) components.get(i)).getOutput(2);
                 bottomRow[x + 24 * 5] = ((NORChip) components.get(i)).getOutput(3);
-            } else if (componentID == 6) {
+            } else if (componentID == 6) {//checks all the outputs for a NOT chip
                 topRow[x + 24 * 2] = ((NOTChip) components.get(i)).getOutput(0);
                 topRow[x + 24 * 4] = ((NOTChip) components.get(i)).getOutput(1);
                 topRow[x + 24 * 6] = ((NOTChip) components.get(i)).getOutput(2);
                 bottomRow[x + 24 * 1] = ((NOTChip) components.get(i)).getOutput(3);
                 bottomRow[x + 24 * 3] = ((NOTChip) components.get(i)).getOutput(4);
                 bottomRow[x + 24 * 5] = ((NOTChip) components.get(i)).getOutput(5);
-            } else if (componentID == 7) {
+            } else if (componentID == 7) {//checks all the outputs for a OR chip
                 topRow[x + 24 * 3] = ((ORChip) components.get(i)).getOutput(0);
                 topRow[x + 24 * 6] = ((ORChip) components.get(i)).getOutput(1);
                 bottomRow[x + 24 * 2] = ((ORChip) components.get(i)).getOutput(2);
                 bottomRow[x + 24 * 5] = ((ORChip) components.get(i)).getOutput(3);
-            } else {
+            } else {//checks all the outputs for a XOR chip
                 topRow[x + 24 * 3] = ((XORChip) components.get(i)).getOutput(0);
                 topRow[x + 24 * 6] = ((XORChip) components.get(i)).getOutput(1);
                 bottomRow[x + 24 * 2] = ((XORChip) components.get(i)).getOutput(2);
