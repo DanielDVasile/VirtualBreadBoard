@@ -775,7 +775,7 @@ public class BreadBoardMenu extends JFrame {
     MouseListener undoL = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (undoButton.contains(e.getPoint())) {
+            if (undoButton.contains(e.getPoint()) && !simulating) {
                 if (componentList.size() > 0) {
                     //resets the pins that the component once used so it can be used again
                     if (componentListID.get(0) == 1) {
@@ -821,7 +821,7 @@ public class BreadBoardMenu extends JFrame {
     MouseListener deleteL = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (deleteButton.contains(e.getPoint())) {
+            if (deleteButton.contains(e.getPoint()) && !simulating) {
                 componentList.removeAll(componentList);
                 componentListID.removeAll(componentListID);
                 area.removeAll();
