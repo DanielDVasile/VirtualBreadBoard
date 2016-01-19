@@ -113,5 +113,41 @@ public class NORChip extends Chip{
         isPowered = false;
         isGrounded = false;
     }
+
+    @Override
+    public void setPowered(boolean state) {
+        isPowered = state;
+    }
+
+    @Override
+    public void setGrounded(boolean state) {
+        isGrounded = state;
+    }
+
+    @Override
+    public void setInputPinState(boolean state, int x, int y) {
+        input[x][y] = state;
+    }
+
+    @Override
+    public boolean getOutput(int pinNum) {
+        if(input[pinNum][0] == false && input[pinNum][1] == false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean isPowered() {
+        return isPowered;
+    }
+
+    @Override
+    public boolean isGrounded() {
+        return isGrounded;
+    }
+    
+    
     
 }

@@ -109,5 +109,42 @@ public class NOTChip extends Chip{
         isPowered = false;
         isGrounded = false;
     }
+
+    @Override
+    public void setPowered(boolean state) {
+        isPowered = state;
+    }
+
+    @Override
+    public void setGrounded(boolean state) {
+        isGrounded = state;
+    }
+
+    @Override
+    public void setInputPinState(boolean state, int x, int y) {
+    }
+    /**
+     * sets the state of one of the input pins on the NOT Chip
+     * @param state the state of the pin
+     * @param x the location of the pin in the array
+     */
+    public void setNOTInputPinState(boolean state, int x) {
+        input[x] = state;
+    }
+
+    @Override
+    public boolean getOutput(int pinNum) {
+        return !input[pinNum];
+    }
+    
+    @Override
+    public boolean isPowered() {
+        return isPowered;
+    }
+
+    @Override
+    public boolean isGrounded() {
+        return isGrounded;
+    }
     
 }

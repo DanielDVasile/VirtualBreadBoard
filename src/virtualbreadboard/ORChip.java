@@ -112,4 +112,34 @@ public class ORChip extends Chip{
         isPowered = false;
         isGrounded = false;
     }
+
+    @Override
+    public void setPowered(boolean state) {
+        isPowered = state;
+    }
+
+    @Override
+    public void setGrounded(boolean state) {
+        isGrounded = state;
+    }
+
+    @Override
+    public void setInputPinState(boolean state, int x, int y) {
+        input[x][y] = state;
+    }
+
+    @Override
+    public boolean getOutput(int pinNum) {
+        return input[pinNum][0] || input[pinNum][1];
+    }
+    
+    @Override
+    public boolean isPowered() {
+        return isPowered;
+    }
+
+    @Override
+    public boolean isGrounded() {
+        return isGrounded;
+    }
 }
